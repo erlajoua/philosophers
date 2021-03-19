@@ -6,7 +6,7 @@
 /*   By: erlajoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:00:13 by erlajoua          #+#    #+#             */
-/*   Updated: 2021/03/19 11:47:47 by erlajoua         ###   ########.fr       */
+/*   Updated: 2021/03/19 21:12:28 by erlajoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ void	*car(void *arg)
 
 int main(void)
 {
-	pthread_t th[13];
+	pthread_t th[2];
 	pthread_mutex_init(&mutexFuel, NULL); 
-	for (int i = 0; i < 13; i++)
+	for (int i = 0; i < 2; i++)
 	{
 		if (i == 1)
 		{
@@ -63,7 +63,7 @@ int main(void)
 				perror("Failed to create thread");
 		}
 	}
-	for (int i = 0; i < 13; i++)
+	for (int i = 0; i < 2; i++)
 	{
 		if (pthread_join(th[i], NULL))
 			perror("Failed to join thread");
