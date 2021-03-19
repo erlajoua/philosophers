@@ -5,69 +5,61 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: erlajoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/19 10:00:13 by erlajoua          #+#    #+#             */
-/*   Updated: 2021/03/19 11:47:47 by erlajoua         ###   ########.fr       */
+/*   Created: 2021/03/19 15:19:44 by erlajoua          #+#    #+#             */
+/*   Updated: 2021/03/19 16:39:47 by erlajoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//let's go philosophers
-
 #include "philo_one.h"
-#include <pthread.h>
-#include <errno.h>
 
-pthread_mutex_t mutexFuel;
-int fuel = 0;
+#define N 5
 
-void	*fuel_filling(void *arg)
+void	*philo_action(void *arg)
 {
-	for (int i = 0; i < 5; i++)
-	{
-		pthread_mutex_lock(&mutexFuel);
-		fuel += 15;
-		printf("Filled fuel... %d\n", fuel);
-		pthread_mutex_unlock(&mutexFuel);
-		sleep(1);
-	}
+	t_info *infos = (t_info *)arg;
+	
+	printf("time to die : %d\n", infos->time_to_die);
+	printf("je suis un philosophers of index : %d\n", infos->philosophers->th_phil[5]);
 	return (NULL);
 }
 
-void	*car(void *arg)
+int		main(int ac, char **av)
 {
-	while (fuel < 40)
-	{
-		printf("No fuel. Waiting...\n");
-		sleep(1);
-	}
-	pthread_mutex_lock(&mutexFuel); //this lock
-	fuel -= 40;
-	printf("Got fuel. Now left: %d\n", fuel);
-	pthread_mutex_unlock(&mutexFuel);
-	return (NULL);
-}
+	t_info				infos;
 
-int main(void)
-{
-	pthread_t th[13];
-	pthread_mutex_init(&mutexFuel, NULL); 
-	for (int i = 0; i < 13; i++)
+	if (ac != 5)
 	{
-		if (i == 1)
-		{
-			if (pthread_create(&th[i], NULL, &fuel_filling, NULL) != 0)
-				perror("Failed to create thread");
-		}
-		else
-		{
-			if (pthread_create(&th[i], NULL, &car, NULL) != 0)
-				perror("Failed to create thread");
-		}
+		printf("usage %s [nb_phils] [t_die] [t_eat] [t_sleep]\n", av[0]);
+		return (0);
 	}
-	for (int i = 0; i < 13; i++)
+	infos.nb_of_phils = ft_atoi(av[1]);
+	infos.time_to_die = ft_atoi(av[2]);
+	infos.time_to_eat = ft_atoi(av[3]);
+	infos.time_to_sleep = ft_atoi(av[4]);
+	infos.philosophers = malloc(sizeof(t_philo) * (infos.nb_of_phils));
+	if (!infos.philosophers)
+		return (-1);
+	infos.fork = malloc(sizeof(pthread_mutex_t) * infos.nb_of_phils);
+	if (!infos.fork)
+		return (-1);
+	for (int i = 0; i < infos.nb_of_phils; i++)
 	{
-		if (pthread_join(th[i], NULL))
-			perror("Failed to join thread");
+		pthread_mutex_init(&infos.fork[i], NULL);
 	}
-	pthread_mutex_destroy(&mutexFuel);
+	infos.philosophers->th_phil = malloc(sizeof(pthread_t) * (infos.nb_of_phils));
+	if (!infos.philosophers->th_phil)
+		return (-1);
+	for (int i = 0; i < infos.nb_of_phils; i++)
+	{
+		pthread_create(&infos.philosophers->th_phil[i], NULL, &philo_action, &infos);
+	}
+	for (int i = 0; i < infos.nb_of_phils; i++)
+	{
+		pthread_join((infos.philosophers)->th_phil[i], NULL);
+	}
+	for (int i = 0; i < infos.nb_of_phils; i++)
+	{
+		pthread_mutex_destroy(&infos.fork[i]);
+	}
 	return (0);
 }
