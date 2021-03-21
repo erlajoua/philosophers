@@ -6,7 +6,7 @@
 /*   By: erlajoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 15:19:44 by erlajoua          #+#    #+#             */
-/*   Updated: 2021/03/19 22:11:25 by erlajoua         ###   ########.fr       */
+/*   Updated: 2021/03/21 10:22:25 by erlajoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	*philo_action(void *arg)
 {
 	t_philo *p = (t_philo *)arg;
 	
-	//printf("je suis un p : %d\n", p->index);
+	printf("je suis un p : %d\n", p->index);
 	if (p->p_f[p->index].is_taken == 0 && p->p_f[(p->index + 1) % p->nb_of_phils].is_taken == 0)
 	{
 		pthread_mutex_lock(&(p->p_f[p->index].mutex_f));
@@ -31,11 +31,6 @@ void	*philo_action(void *arg)
 		p->p_f[p->index].is_taken = 0;
 		p->p_f[p->index].is_taken = 0;
 		printf("JE RELACHE MES FOURCHETTES [%d]\n", p->index);
-	}
-	else
-	{
-		pthread_mutex_unlock(&(p->p_f[p->index].mutex_f));
-		pthread_mutex_unlock(&(p->p_f[(p->index + 1) % p->nb_of_phils].mutex_f));
 	}
 	return (NULL);
 }
