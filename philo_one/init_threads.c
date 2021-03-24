@@ -6,35 +6,48 @@
 /*   By: erlajoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 17:07:56 by erlajoua          #+#    #+#             */
-/*   Updated: 2021/03/24 17:25:28 by erlajoua         ###   ########.fr       */
+/*   Updated: 2021/03/24 22:05:53 by erlajoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_one.h"
 
+struct s_willy
+{
+	t_philo *sp;
+	t_info  *si;
+};
+typedef struct s_willy t_willy;
+
 void	*test(void *arg)
 {
-	t_philo *phil;
+	t_willy *mgl;
+	t_info	*infos;
+	t_philo *philos;
 
-	phil = (t_philo *)arg;
-	printf("TEST index : %d\n", phil->i);
+	mgl = (t_willy *)arg;
+	infos = (t_info *)mgl->si;
+	philos = (t_philo *)mgl->sp;
+
+	printf("infos->nbphilo : %d\n", infos->nb_philos);
+	printf("TEST index : %d\n", philos->id);
 	return (NULL);
 }
 
-int		init_threads(t_info *infos)
+int		init_threads(t_info *infos, t_philo *philos)
 {
-	int i;
+	int			i;
+	t_willy *prout;
 
 	i = 0;
-	infos->philos = malloc(sizeof(t_philo) * infos->nb_philos);
-	if (!infos->philos)
-		return (0);
+	prout = malloc(sizeof(t_willy));
+	prout->si = infos;
 	while (i < infos->nb_philos)
 	{
-		infos->philos[i].i = i;
-		//infos->philos.th_phil = malloc(sizeof(pthread
-		if (pthread_create(&infos->philos[i].th_phil, NULL, &test, &infos->philos[i]))
+		prout->sp = &philos[i];
+		if (pthread_create(&(philos[i].th_phil), NULL, &test, prout))
 			return (0);
+		usleep(4000);
 		i++;
 	}
 	return (1);
