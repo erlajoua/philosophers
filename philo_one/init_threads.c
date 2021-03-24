@@ -6,30 +6,23 @@
 /*   By: erlajoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 17:07:56 by erlajoua          #+#    #+#             */
-/*   Updated: 2021/03/24 22:05:53 by erlajoua         ###   ########.fr       */
+/*   Updated: 2021/03/24 22:07:37 by erlajoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_one.h"
 
-struct s_willy
-{
-	t_philo *sp;
-	t_info  *si;
-};
-typedef struct s_willy t_willy;
-
 void	*test(void *arg)
 {
-	t_willy *mgl;
+	void	**args;
 	t_info	*infos;
 	t_philo *philos;
 
-	mgl = (t_willy *)arg;
-	infos = (t_info *)mgl->si;
-	philos = (t_philo *)mgl->sp;
+	args = (void **)arg;
+	infos = (t_info *)args[0];
+	philos = (t_philo *)args[1];
 
-	printf("infos->nbphilo : %d\n", infos->nb_philos);
+	printf("infos->nbphil0 : %d\n", infos->nb_philos);
 	printf("TEST index : %d\n", philos->id);
 	return (NULL);
 }
@@ -37,15 +30,14 @@ void	*test(void *arg)
 int		init_threads(t_info *infos, t_philo *philos)
 {
 	int			i;
-	t_willy *prout;
+	void		*args[2];
 
 	i = 0;
-	prout = malloc(sizeof(t_willy));
-	prout->si = infos;
+	args[0] = (void *)infos;
 	while (i < infos->nb_philos)
 	{
-		prout->sp = &philos[i];
-		if (pthread_create(&(philos[i].th_phil), NULL, &test, prout))
+		args[1] = (void *)&philos[i];
+		if (pthread_create(&(philos[i].th_phil), NULL, &test, args))
 			return (0);
 		usleep(4000);
 		i++;
