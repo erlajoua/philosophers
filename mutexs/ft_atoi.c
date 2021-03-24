@@ -1,31 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: erlajoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/24 17:07:57 by erlajoua          #+#    #+#             */
-/*   Updated: 2021/03/24 17:23:28 by erlajoua         ###   ########.fr       */
+/*   Created: 2021/03/19 15:22:46 by erlajoua          #+#    #+#             */
+/*   Updated: 2021/03/19 15:22:54 by erlajoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_one.h"
 
-int main(int ac, char **av)
+int		ft_atoi(char *str)
 {
-	t_info infos;
+	int i;
+	int ret;
+	int sign;
 
-	ft_memset(&infos, 0, sizeof(infos));
-	if (ac != 5)
+	i = 0;
+	ret = 0;
+	sign = 1;
+	while (str[i] >= 9 && str[i] <= 13)
+		i++;
+	while (str[i] == '+' || str[i] == '-')
 	{
-		printf("usage %s [nb_phils] [t_die] [t_eat] [t_sleep]\n", av[0]);
-		return (0);
+		if (str[i] == '-')
+			sign *= -1;
+		i++;
 	}
-	init_params(&infos, av);
-	if (!(init_forks(&infos)))
-		ft_error(MALLOC);
-	if (!(init_threads(&infos)))
-		ft_error(MALLOC);
-	join_and_destroy(&infos);
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		ret = ret * 10 + str[i] - 48;
+		i++;
+	}
+	return (ret * sign);
 }

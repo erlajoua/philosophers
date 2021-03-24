@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   wait_threads.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: erlajoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/24 17:07:57 by erlajoua          #+#    #+#             */
-/*   Updated: 2021/03/24 17:23:28 by erlajoua         ###   ########.fr       */
+/*   Created: 2021/03/24 17:13:44 by erlajoua          #+#    #+#             */
+/*   Updated: 2021/03/24 17:18:10 by erlajoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_one.h"
 
-int main(int ac, char **av)
+void	join_and_destroy(t_info *infos)
 {
-	t_info infos;
+	int i;
 
-	ft_memset(&infos, 0, sizeof(infos));
-	if (ac != 5)
+	i = 0;
+	while (i < infos->nb_philos)
 	{
-		printf("usage %s [nb_phils] [t_die] [t_eat] [t_sleep]\n", av[0]);
-		return (0);
+		pthread_join(infos->philos[i].th_phil, NULL);
+		pthread_mutex_destroy(&infos->forks[i]);
+		i++;
 	}
-	init_params(&infos, av);
-	if (!(init_forks(&infos)))
-		ft_error(MALLOC);
-	if (!(init_threads(&infos)))
-		ft_error(MALLOC);
-	join_and_destroy(&infos);
 }
