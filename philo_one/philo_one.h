@@ -6,7 +6,7 @@
 /*   By: erlajoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 15:19:49 by erlajoua          #+#    #+#             */
-/*   Updated: 2021/03/25 15:11:02 by erlajoua         ###   ########.fr       */
+/*   Updated: 2021/03/26 18:13:50 by erlajoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ struct					s_philo
 	unsigned int		last_meal;
 	unsigned int		start_usec;
 	unsigned int		start_sec;
+	unsigned int		current_time;
 };
 typedef struct s_philo	t_philo;
 

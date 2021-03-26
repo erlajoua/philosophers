@@ -6,7 +6,7 @@
 /*   By: erlajoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 10:56:34 by erlajoua          #+#    #+#             */
-/*   Updated: 2021/03/25 11:03:27 by erlajoua         ###   ########.fr       */
+/*   Updated: 2021/03/26 18:21:29 by erlajoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,6 @@
 
 void	philo_think(t_info *infos, t_philo *philos)
 {
-	printf("%d is thinking\n", philos->id);
+	printf("[%ums] %d is thinking\n", philos->current_time, philos->id + 1);
+	usleep(4000 * T_MILLI);
 }
