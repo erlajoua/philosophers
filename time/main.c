@@ -9,8 +9,8 @@
 # define MICROSEC    0
 # define MILLESEC    1
 
-# define TIME_TO_EAT 0.7
-# define TIME_TO_DIE 0.8
+# define TIME_TO_EAT 5 //s
+# define TIME_TO_DIE 4.8
 
 unsigned int last_meal;
 unsigned int mytime;
@@ -58,7 +58,7 @@ void	*manger(void *arg)
 
 	tab_sec = (unsigned int *)arg;
 	printf("checker time...\n");
-	usleep(TIME_TO_DIE * 1000000);
+	usleep(TIME_TO_DIE * 1000000); //usleep(1)     1microseconde 1*10^-6    5420 millisecondes 5420000
 	mytime = get_time(tab_sec[0], tab_sec[1]);
 	return NULL;
 }

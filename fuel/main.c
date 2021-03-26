@@ -6,7 +6,7 @@
 /*   By: erlajoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:00:13 by erlajoua          #+#    #+#             */
-/*   Updated: 2021/03/19 21:12:28 by erlajoua         ###   ########.fr       */
+/*   Updated: 2021/03/25 15:15:56 by erlajoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	*fuel_filling(void *arg)
 		pthread_mutex_lock(&mutexFuel);
 		fuel += 15;
 		printf("Filled fuel... %d\n", fuel);
-		pthread_mutex_unlock(&mutexFuel);
 		sleep(1);
 	}
 	return (NULL);
