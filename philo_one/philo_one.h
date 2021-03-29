@@ -6,7 +6,7 @@
 /*   By: erlajoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 15:19:49 by erlajoua          #+#    #+#             */
-/*   Updated: 2021/03/26 18:13:50 by erlajoua         ###   ########.fr       */
+/*   Updated: 2021/03/29 14:57:37 by erlajoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ struct					s_info
 	int					time_to_sleep;
 	int					one_dead;
 	unsigned int		time_ref;
+	unsigned int		start_usec;
+	unsigned int		start_sec;
 };
 typedef struct s_info	t_info;
 
