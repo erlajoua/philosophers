@@ -6,7 +6,7 @@
 /*   By: erlajoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 17:07:57 by erlajoua          #+#    #+#             */
-/*   Updated: 2021/03/29 14:46:46 by erlajoua         ###   ########.fr       */
+/*   Updated: 2021/03/30 20:13:05 by erlajoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,7 @@ int		main(int ac, char **av)
 		ft_error(MALLOC);
 	if (!(forks = init_forks(&infos, philos)))
 		ft_error(MALLOC);
-	infos.start_usec = get_time_start(MICROSEC);
-	infos.start_sec = get_time_start(MILLESEC);
-	infos.time_ref = get_time(infos.start_usec, infos.start_sec);
+	infos.time_ref = timer();
 	if (!(init_threads(&infos, philos)))
 		ft_error(MALLOC);
 	join_and_destroy(&infos, philos, forks);

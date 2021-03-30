@@ -6,7 +6,7 @@
 /*   By: erlajoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 17:07:56 by erlajoua          #+#    #+#             */
-/*   Updated: 2021/03/30 18:08:16 by erlajoua         ###   ########.fr       */
+/*   Updated: 2021/03/30 20:14:06 by erlajoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,8 @@ void	*test(void *arg)
 	philos = (t_philo *)args[1];
 
 	i = 0;
-	//printf("TEST index : %d\n", philos->id);
-	//philos->start_usec = get_time_start(MICROSEC);
-	//philos->start_sec = get_time_start(MILLESEC);
-	infos->time_ref = get_time(infos->start_usec, infos->start_sec);
-	philos->current_time = philos->last_meal;
 	while (!infos->one_dead)
 	{
-		philos->last_meal = get_time(infos->start_usec, infos->start_sec);
 		philo_eat(infos, philos);
 		philo_sleep(infos, philos);
 		philo_think(infos, philos);
