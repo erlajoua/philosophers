@@ -6,7 +6,7 @@
 /*   By: erlajoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 17:02:02 by erlajoua          #+#    #+#             */
-/*   Updated: 2021/03/25 10:56:27 by erlajoua         ###   ########.fr       */
+/*   Updated: 2021/04/05 11:52:30 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ pthread_mutex_t		*init_forks(t_info *infos, t_philo *philos)
 			return (NULL);
 		i++;
 	}
+	if (pthread_mutex_init(&infos->mutex_stdout, NULL))
+		return (NULL);
 	i = 0;
 	while (i < infos->nb_philos)
 	{

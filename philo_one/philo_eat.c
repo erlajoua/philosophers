@@ -6,7 +6,7 @@
 /*   By: erlajoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 10:33:07 by erlajoua          #+#    #+#             */
-/*   Updated: 2021/04/05 11:34:56 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/05 11:51:46 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,24 @@ void	philo_eat(t_info *infos, t_philo *philos)
 		printf("error mutex lock\n");
 		return ;
 	}
+	pthread_mutex_lock(&infos->mutex_stdout);
 	ft_putnbr(timer() - infos->time_ref);
 	ft_putstr_fd("|", STDOUT_FILENO);
 	ft_putnbr(philos->id + 1);
-	ft_putstr_fd("has taken a fork L\n", STDOUT_FILENO);
+	ft_putstr_fd(" has taken a fork L\n", STDOUT_FILENO);
 	//
 	ft_putnbr(timer() - infos->time_ref);
 	ft_putstr_fd("|", STDOUT_FILENO);
 	ft_putnbr(philos->id + 1);
-	ft_putstr_fd("has taken a fork R\n", STDOUT_FILENO);
+	ft_putstr_fd(" has taken a fork R\n", STDOUT_FILENO);
 	//
 	ft_putnbr(timer() - infos->time_ref);
 	ft_putstr_fd("|", STDOUT_FILENO);
 	ft_putnbr(philos->id + 1);
-	ft_putstr_fd("is eating\n", STDOUT_FILENO);
+	ft_putstr_fd(" is eating\n", STDOUT_FILENO);
+	pthread_mutex_unlock(&infos->mutex_stdout);
+	//
 	usleep(infos->time_to_eat * T_MILLI);
-	//
 	if (pthread_mutex_unlock(philos->fork_r) || pthread_mutex_unlock(philos->fork_l))
 	{
 		printf("error mutex unlock\n");

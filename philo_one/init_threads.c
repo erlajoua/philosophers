@@ -6,7 +6,7 @@
 /*   By: erlajoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 17:07:56 by erlajoua          #+#    #+#             */
-/*   Updated: 2021/03/30 20:14:06 by erlajoua         ###   ########.fr       */
+/*   Updated: 2021/04/05 11:45:05 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int		init_threads(t_info *infos, t_philo *philos)
 		args[1] = (void *)&philos[i];
 		if (pthread_create(&(philos[i].th_phil), NULL, &test, args))
 			return (0);
-		usleep(5000);
+		usleep(300);
 		i++;
 	}
 	return (1);
