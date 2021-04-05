@@ -6,7 +6,7 @@
 /*   By: erlajoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 15:19:49 by erlajoua          #+#    #+#             */
-/*   Updated: 2021/03/30 20:15:25 by erlajoua         ###   ########.fr       */
+/*   Updated: 2021/04/05 11:26:46 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void				philo_sleep(t_info *infos, t_philo *philos);
 void				philo_think(t_info *infos, t_philo *philos);
 void				join_and_destroy(t_info *infos, t_philo *philos, pthread_mutex_t *forks);
 void				*ft_memset(void *b, int c, size_t len);
+void				ft_putnbr(int nb);
 unsigned int		timer(void);
 t_philo				*init_philos(t_info *infos);
 pthread_mutex_t		*init_forks(t_info *infos, t_philo *philos);
