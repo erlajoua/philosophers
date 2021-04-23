@@ -12,13 +12,25 @@
 
 #include "philo_one.h"
 
+void	check(t_info *infos, t_philo *philos)
+{
+	while (infos->crever != 1)
+		usleep(1 * T_MILLI);
+	if (infos->crever == 1)
+	{
+		for (int i = 0; i < infos->nb_philos; i++)
+			pthread_detach(philos[i].th_phil);
+	}
+}
+
 int		main(int ac, char **av)
 {
 	t_info				infos;
 	t_philo				*philos;
 	pthread_mutex_t		*forks;
 
-	ft_memset(&infos, 0, sizeof(t_info));
+	infos.crever = 0;
+	memset(&infos, 0, sizeof(t_info));
 	if (ac != 5)
 	{
 		printf("usage %s [nb_phils] [t_die] [t_eat] [t_sleep]\n", av[0]);
@@ -32,5 +44,6 @@ int		main(int ac, char **av)
 	infos.time_ref = timer();
 	if (!(init_threads(&infos, philos)))
 		ft_error(MALLOC);
+	check(&infos, philos);
 	join_and_destroy(&infos, philos, forks);
 }

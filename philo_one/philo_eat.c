@@ -14,38 +14,15 @@
 
 void	philo_eat(t_info *infos, t_philo *philos)
 {
-	//printf("arrive dans philo_eat avec l'id : %d\n", philos->id);
 	if (pthread_mutex_lock(philos->fork_l) || pthread_mutex_lock(philos->fork_r))
-	{
-		printf("error mutex lock\n");
-		return ;
-	}
+		perror("error fourchette");
 	pthread_mutex_lock(&infos->mutex_stdout);
-	ft_putnbr(timer() - infos->time_ref);
-	ft_putstr_fd("|", STDOUT_FILENO);
-	ft_putnbr(philos->id + 1);
-	ft_putstr_fd(" has taken a fork L\n", STDOUT_FILENO);
-	//
-	ft_putnbr(timer() - infos->time_ref);
-	ft_putstr_fd("|", STDOUT_FILENO);
-	ft_putnbr(philos->id + 1);
-	ft_putstr_fd(" has taken a fork R\n", STDOUT_FILENO);
-	//
-	ft_putnbr(timer() - infos->time_ref);
-	ft_putstr_fd("|", STDOUT_FILENO);
-	ft_putnbr(philos->id + 1);
-	ft_putstr_fd(" is eating\n", STDOUT_FILENO);
+	printf("[%6dms] |%d| has taken forks L\n", timer() - infos->time_ref, philos->id + 1);
+	printf("[%6dms] |%d| has taken forks R\n", timer() - infos->time_ref, philos->id + 1);
+	printf("[%6dms] |%d| is eating\n", timer() - infos->time_ref, philos->id + 1);
 	pthread_mutex_unlock(&infos->mutex_stdout);
-	//
+	philos->last_meal = timer() - infos->time_ref;
 	usleep(infos->time_to_eat * T_MILLI);
-	if (pthread_mutex_unlock(philos->fork_r) || pthread_mutex_unlock(philos->fork_l))
-	{
-		printf("error mutex unlock\n");
-		return ;
-	}
-	ft_putstr_fd("has left both forks\n", STDOUT_FILENO);
-	//
-
-	//printf("[%ums] %d left the fork L\n", timer() - infos->time_ref, philos->id + 1);
-	//printf("[%ums] %d left the fork R\n", timer() - infos->time_ref, philos->id + 1);
+	if (pthread_mutex_unlock(philos->fork_l) || pthread_mutex_unlock(philos->fork_r))
+		perror("error fourchette");
 }

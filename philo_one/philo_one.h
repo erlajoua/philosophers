@@ -40,6 +40,7 @@ struct					s_philo
 	pthread_mutex_t		*fork_r;
 	int					id;
 	unsigned int		last_meal;
+	unsigned int		nb_meals;
 };
 typedef struct s_philo	t_philo;
 
@@ -52,6 +53,7 @@ struct					s_info
 	int					one_dead;
 	unsigned int		time_ref;
 	pthread_mutex_t		mutex_stdout;
+	int					crever;
 };
 typedef struct s_info	t_info;
 

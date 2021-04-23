@@ -10,7 +10,7 @@
 //change ici 
 
 # define EATTIME 600
-# define SLEEPTIME 120
+# define SLEEPTIME 3000
 # define DIETIME 700
 
 //
