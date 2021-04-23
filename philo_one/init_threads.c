@@ -23,7 +23,7 @@ void	*faucheuse(void *arg)
 	philos = (t_philo *)args[1];
 	usleep(infos->time_to_die * T_MILLI);
 
-	if ((timer() - infos->time_ref) >= infos->time_to_die /*+ philos->last_meal*/)
+	if ((timer() - infos->time_ref) >= infos->time_to_die + philos->last_meal)
 	{
 		pthread_mutex_lock(&infos->mutex_stdout);
 		printf("[%6dms] |%d| is dead\n", timer() - infos->time_ref, philos->id + 1);
@@ -35,6 +35,7 @@ void	*faucheuse(void *arg)
 void	*philosophers(void *arg)
 {
 	void	**args;
+	void	*new_arg[2];
 	int		i;
 	t_info	*infos;
 	t_philo *philos;
@@ -43,10 +44,12 @@ void	*philosophers(void *arg)
 	args = (void **)arg;
 	infos = (t_info *)args[0];
 	philos = (t_philo *)args[1];
+	new_arg[0] = (void *)infos;
+	new_arg[1] = (void *)philos;
 	i = 0;
-	while (!infos->one_dead)
+	while (!infos->crever)
 	{	
-		pthread_create(&reaper, NULL, &faucheuse, args);
+		pthread_create(&reaper, NULL, &faucheuse, new_arg);
 		philo_eat(infos, philos);
 		philo_sleep(infos, philos);
 		philo_think(infos, philos);

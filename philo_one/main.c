@@ -12,12 +12,16 @@
 
 #include "philo_one.h"
 
-void	check(t_info *infos, t_philo *philos)
+void	check(t_info *infos, t_philo *philos, pthread_mutex_t *forks)
 {
+	int tmp;
+
+	tmp = 0;
 	while (infos->crever != 1)
 		usleep(1 * T_MILLI);
 	if (infos->crever == 1)
 	{
+		tmp = 1;
 		for (int i = 0; i < infos->nb_philos; i++)
 			pthread_detach(philos[i].th_phil);
 	}
@@ -44,6 +48,6 @@ int		main(int ac, char **av)
 	infos.time_ref = timer();
 	if (!(init_threads(&infos, philos)))
 		ft_error(MALLOC);
-	check(&infos, philos);
+	check(&infos, philos, forks);
 	join_and_destroy(&infos, philos, forks);
 }

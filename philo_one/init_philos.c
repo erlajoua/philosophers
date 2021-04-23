@@ -21,7 +21,7 @@ t_philo		*init_philos(t_info *infos)
 	philos = malloc(sizeof(t_philo) * infos->nb_philos);
 	if (!philos)
 		return (NULL);
-	ft_memset(philos, 0, sizeof(t_philo *));
+	memset(philos, 0, sizeof(t_philo));
 	while (i < infos->nb_philos)
 	{
 		philos->last_meal = 0;

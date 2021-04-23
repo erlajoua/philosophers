@@ -25,7 +25,10 @@ pthread_mutex_t		*init_forks(t_info *infos, t_philo *philos)
 	while (i < infos->nb_philos)
 	{
 		if (pthread_mutex_init(&forks[i], NULL))
+		{
+			printf("error init forks\n");
 			return (NULL);
+		}
 		i++;
 	}
 	if (pthread_mutex_init(&infos->mutex_stdout, NULL))

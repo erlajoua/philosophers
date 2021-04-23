@@ -19,8 +19,13 @@ void	join_and_destroy(t_info *infos, t_philo *philos, pthread_mutex_t *forks)
 	i = 0;
 	while (i < infos->nb_philos)
 	{
-		pthread_join(philos[i].th_phil, NULL);
+		//pthread_join(philos[i].th_phil, NULL);
 		pthread_mutex_destroy(&forks[i]);
+		if (i == infos->nb_philos - 1)
+		{
+			free(forks);
+			
+		}
 		i++;
 	}
 }
