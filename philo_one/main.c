@@ -6,26 +6,11 @@
 /*   By: erlajoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 17:07:57 by erlajoua          #+#    #+#             */
-/*   Updated: 2021/04/05 11:28:37 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/24 10:23:54 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_one.h"
-
-void	check(t_info *infos, t_philo *philos, pthread_mutex_t *forks)
-{
-	int tmp;
-
-	tmp = 0;
-	while (infos->crever != 1)
-		usleep(1 * T_MILLI);
-	if (infos->crever == 1)
-	{
-		tmp = 1;
-		for (int i = 0; i < infos->nb_philos; i++)
-			pthread_detach(philos[i].th_phil);
-	}
-}
 
 int		main(int ac, char **av)
 {
@@ -48,6 +33,6 @@ int		main(int ac, char **av)
 	infos.time_ref = timer();
 	if (!(init_threads(&infos, philos)))
 		ft_error(MALLOC);
-	check(&infos, philos, forks);
 	join_and_destroy(&infos, philos, forks);
+	free(philos);
 }

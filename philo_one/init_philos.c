@@ -24,7 +24,7 @@ t_philo		*init_philos(t_info *infos)
 	memset(philos, 0, sizeof(t_philo));
 	while (i < infos->nb_philos)
 	{
-		philos->last_meal = 0;
+		philos[i].last_meal = 0;
 		philos[i].id = i;
 		i++;
 	}

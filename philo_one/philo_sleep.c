@@ -14,6 +14,8 @@
 
 void	philo_sleep(t_info *infos, t_philo *philos)
 {
+	if (infos->crever == 1)
+		return ;
 	pthread_mutex_lock(&infos->mutex_stdout);
 	printf("[%6dms] |%d| is sleeping\n", timer() - infos->time_ref, philos->id + 1);
 	pthread_mutex_unlock(&infos->mutex_stdout);

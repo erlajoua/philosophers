@@ -6,7 +6,7 @@
 /*   By: erlajoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 17:07:56 by erlajoua          #+#    #+#             */
-/*   Updated: 2021/04/05 11:45:05 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/23 19:04:21 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,22 @@ void	*faucheuse(void *arg)
 	void	**args;
 	t_philo *philos;
 	t_info	*infos;
+	int		timing;
 
 	args = (void **)arg;
 	infos = (t_info *)args[0];
 	philos = (t_philo *)args[1];
 	usleep(infos->time_to_die * T_MILLI);
-
-	if ((timer() - infos->time_ref) >= infos->time_to_die + philos->last_meal)
+	timing = timer() - infos->time_ref;
+	if (timing >= infos->time_to_die + philos->last_meal)
 	{
-		pthread_mutex_lock(&infos->mutex_stdout);
-		printf("[%6dms] |%d| is dead\n", timer() - infos->time_ref, philos->id + 1);
-		infos->crever = 1;
+		if (infos->crever != 1)
+		{
+			infos->crever = 1;
+			pthread_mutex_lock(&infos->mutex_stdout);
+			printf("[%6dms] |%d| is dead\n", timing, philos->id + 1);
+			pthread_mutex_unlock(&infos->mutex_stdout);
+		}
 	}
 	return (NULL);
 }
@@ -35,7 +40,6 @@ void	*faucheuse(void *arg)
 void	*philosophers(void *arg)
 {
 	void	**args;
-	void	*new_arg[2];
 	int		i;
 	t_info	*infos;
 	t_philo *philos;
@@ -44,21 +48,31 @@ void	*philosophers(void *arg)
 	args = (void **)arg;
 	infos = (t_info *)args[0];
 	philos = (t_philo *)args[1];
-	new_arg[0] = (void *)infos;
-	new_arg[1] = (void *)philos;
 	i = 0;
+	pthread_create(&reaper, NULL, &faucheuse, arg);
 	while (!infos->crever)
 	{	
-		pthread_create(&reaper, NULL, &faucheuse, new_arg);
+		pthread_detach(reaper);
+		pthread_create(&reaper, NULL, &faucheuse, arg);
 		philo_eat(infos, philos);
 		philo_sleep(infos, philos);
 		philo_think(infos, philos);
-		pthread_detach(reaper);
 		i++;
 	}
 	infos->crever = 1;
-	pthread_detach(reaper);
+	pthread_join(reaper, NULL);
 	return (NULL);
+}
+
+void	check(t_info *infos, t_philo *philos)
+{
+	while (infos->crever != 1)
+		usleep(1 * T_MILLI);
+	if (infos->crever == 1)
+	{
+		for (int i = 0; i < infos->nb_philos; i++)
+			pthread_join(philos[i].th_phil, NULL);
+	}
 }
 
 int		init_threads(t_info *infos, t_philo *philos)
@@ -77,5 +91,6 @@ int		init_threads(t_info *infos, t_philo *philos)
 		usleep(30);
 		i++;
 	}
+	check(infos, philos);
 	return (1);
 }
