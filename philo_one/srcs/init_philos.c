@@ -1,24 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_sleep.c                                      :+:      :+:    :+:   */
+/*   init_philos.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: erlajoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/25 10:59:13 by erlajoua          #+#    #+#             */
-/*   Updated: 2021/04/05 11:52:54 by user42           ###   ########.fr       */
+/*   Created: 2021/03/25 10:19:01 by erlajoua          #+#    #+#             */
+/*   Updated: 2021/03/25 10:19:19 by erlajoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo_one.h"
+#include "../philo_one.h"
 
-void	philo_sleep(t_info *infos, t_philo *philos)
+t_philo		*init_philos(t_info *infos)
 {
-	if (infos->crever == 1)
-		return ;
-	pthread_mutex_lock(&infos->mutex_stdout);
-	printf("[%6dms] |%d| is sleeping\n", timer() - infos->time_ref, philos->id + 1);
-	pthread_mutex_unlock(&infos->mutex_stdout);
-	usleep(infos->time_to_sleep * T_MILLI);
-}
+	t_philo		*philos;
+	int			i;
 
+	i = 0;
+	philos = malloc(sizeof(t_philo) * infos->nb_philos);
+	if (!philos)
+		return (NULL);
+	memset(philos, 0, sizeof(t_philo));
+	while (i < infos->nb_philos)
+	{
+		philos[i].last_meal = 0;
+		philos[i].id = i;
+		i++;
+	}
+	return (philos);
+}

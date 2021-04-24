@@ -1,32 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_philos.c                                      :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: erlajoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/25 10:19:01 by erlajoua          #+#    #+#             */
-/*   Updated: 2021/03/25 10:19:19 by erlajoua         ###   ########.fr       */
+/*   Created: 2021/03/19 15:22:46 by erlajoua          #+#    #+#             */
+/*   Updated: 2021/03/19 15:22:54 by erlajoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo_one.h"
+#include "../philo_one.h"
 
-t_philo		*init_philos(t_info *infos)
+int		ft_atoi(char *str)
 {
-	t_philo		*philos;
-	int			i;
+	int i;
+	int ret;
+	int sign;
 
 	i = 0;
-	philos = malloc(sizeof(t_philo) * infos->nb_philos);
-	if (!philos)
-		return (NULL);
-	memset(philos, 0, sizeof(t_philo));
-	while (i < infos->nb_philos)
+	ret = 0;
+	sign = 1;
+	while (str[i] >= 9 && str[i] <= 13)
+		i++;
+	while (str[i] == '+' || str[i] == '-')
 	{
-		philos[i].last_meal = 0;
-		philos[i].id = i;
+		if (str[i] == '-')
+			sign *= -1;
 		i++;
 	}
-	return (philos);
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		ret = ret * 10 + str[i] - 48;
+		i++;
+	}
+	return (ret * sign);
 }

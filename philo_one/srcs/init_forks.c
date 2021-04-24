@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo_one.h"
+#include "../philo_one.h"
 
 pthread_mutex_t		*init_forks(t_info *infos, t_philo *philos)
 {

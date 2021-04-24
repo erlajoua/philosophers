@@ -10,21 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo_one.h"
+#include "../philo_one.h"
 
 void	*faucheuse(void *arg)
 {
-	void	**args;
-	t_philo *philos;
-	t_info	*infos;
-	int		timing;
+	void		**args;
+	t_philo		*philos;
+	t_info		*infos;
+	unsigned	int		timing;
 
 	args = (void **)arg;
 	infos = (t_info *)args[0];
 	philos = (t_philo *)args[1];
 	usleep(infos->time_to_die * T_MILLI);
 	timing = timer() - infos->time_ref;
-	if (timing >= infos->time_to_die + philos->last_meal)
+	if (infos->crever != 1 && timing - philos->last_meal >= infos->time_to_die)
 	{
 		if (infos->crever != 1)
 		{
@@ -40,6 +40,7 @@ void	*faucheuse(void *arg)
 void	*philosophers(void *arg)
 {
 	void	**args;
+	void	*new_arg[2];
 	int		i;
 	t_info	*infos;
 	t_philo *philos;
@@ -48,18 +49,19 @@ void	*philosophers(void *arg)
 	args = (void **)arg;
 	infos = (t_info *)args[0];
 	philos = (t_philo *)args[1];
+	new_arg[0] = (void *)infos;
+	new_arg[1] = (void *)philos;
 	i = 0;
-	pthread_create(&reaper, NULL, &faucheuse, arg);
+	pthread_create(&reaper, NULL, &faucheuse, new_arg);
 	while (!infos->crever)
 	{	
 		pthread_detach(reaper);
-		pthread_create(&reaper, NULL, &faucheuse, arg);
+		pthread_create(&reaper, NULL, &faucheuse, new_arg);
 		philo_eat(infos, philos);
 		philo_sleep(infos, philos);
 		philo_think(infos, philos);
 		i++;
 	}
-	infos->crever = 1;
 	pthread_join(reaper, NULL);
 	return (NULL);
 }
@@ -67,7 +69,7 @@ void	*philosophers(void *arg)
 void	check(t_info *infos, t_philo *philos)
 {
 	while (infos->crever != 1)
-		usleep(1 * T_MILLI);
+		usleep(10);
 	if (infos->crever == 1)
 	{
 		for (int i = 0; i < infos->nb_philos; i++)

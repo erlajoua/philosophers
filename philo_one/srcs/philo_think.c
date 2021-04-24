@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   philo_think.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: erlajoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/24 17:04:01 by erlajoua          #+#    #+#             */
-/*   Updated: 2021/03/24 17:05:22 by erlajoua         ###   ########.fr       */
+/*   Created: 2021/03/25 10:56:34 by erlajoua          #+#    #+#             */
+/*   Updated: 2021/04/05 11:53:13 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo_one.h"
+#include "../philo_one.h"
 
-void	ft_error(int index)
+void	philo_think(t_info *infos, t_philo *philos)
 {
-	if (index == MALLOC)
-		ft_putstr_fd("Error: Malloc failed\n", STDERR_FILENO);
-	exit(0);
+	if (infos->crever == 1)
+		return ;
+	pthread_mutex_lock(&infos->mutex_stdout);
+	printf("[%6dms] |%d| is thinking\n", timer() - infos->time_ref, philos->id + 1);
+	pthread_mutex_unlock(&infos->mutex_stdout);
 }

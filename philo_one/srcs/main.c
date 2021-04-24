@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo_one.h"
+#include "../philo_one.h"
 
 int		main(int ac, char **av)
 {
@@ -33,6 +33,6 @@ int		main(int ac, char **av)
 	infos.time_ref = timer();
 	if (!(init_threads(&infos, philos)))
 		ft_error(MALLOC);
-	join_and_destroy(&infos, philos, forks);
+	join_and_destroy(&infos, forks);
 	free(philos);
 }

@@ -1,40 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   display.c                                          :+:      :+:    :+:   */
+/*   get_time.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: erlajoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/24 17:20:56 by erlajoua          #+#    #+#             */
-/*   Updated: 2021/04/05 11:30:16 by user42           ###   ########.fr       */
+/*   Created: 2021/03/25 10:23:23 by erlajoua          #+#    #+#             */
+/*   Updated: 2021/03/30 20:12:47 by erlajoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo_one.h"
+#include "../philo_one.h"
 
-void	ft_putchar(char c)
+unsigned int	timer(void)
 {
-	write(STDOUT_FILENO, &c, 1);
-}
+	struct timeval	tv;
+	int				i;
 
-void	ft_putnbr(int nb)
-{
-	if (nb == -2147483648)
-	{
-		write(STDOUT_FILENO, "-2147483648", 11);
-		return ;
-	}
-	if (nb < 0)
-	{
-		nb = -nb;
-		write(STDOUT_FILENO, " ", 1);
-	}
-	if (nb > 10)
-		ft_putnbr(nb / 10);
-	ft_putchar(nb % 10 + '0');
-}
-
-void	ft_putstr_fd(char *str, int fd)
-{
-	write(fd, str, ft_strlen(str));
+	gettimeofday(&tv, NULL);
+	i = tv.tv_sec * 1000 + tv.tv_usec / 1000;
+	return (i);
 }

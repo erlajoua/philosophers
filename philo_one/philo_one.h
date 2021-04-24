@@ -47,10 +47,10 @@ typedef struct s_philo	t_philo;
 
 struct					s_info
 {
-	int					nb_philos;
-	int					time_to_die;
-	int					time_to_eat;
-	int					time_to_sleep;
+	int		nb_philos;
+	unsigned int		time_to_die;
+	unsigned int		time_to_eat;
+	unsigned int		time_to_sleep;
 	int					one_dead;
 	unsigned int		time_ref;
 	pthread_mutex_t		mutex_stdout;
@@ -67,7 +67,7 @@ void				ft_error(int index);
 void				philo_eat(t_info *infos, t_philo *philos);
 void				philo_sleep(t_info *infos, t_philo *philos);
 void				philo_think(t_info *infos, t_philo *philos);
-void				join_and_destroy(t_info *infos, t_philo *philos, pthread_mutex_t *forks);
+void				join_and_destroy(t_info *infos, pthread_mutex_t *forks);
 void				*ft_memset(void *b, int c, size_t len);
 void				ft_putnbr(int nb);
 unsigned int		timer(void);
