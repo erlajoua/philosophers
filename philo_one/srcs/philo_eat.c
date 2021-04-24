@@ -31,7 +31,8 @@ void	philo_eat(t_info *infos, t_philo *philos)
 	timer() - infos->time_ref, philos->id + 1);
 	printf("%6dms   %d   has taken a fork\n",
 		timer() - infos->time_ref, philos->id + 1);
-	printf("%6dms   %d   is eating\n", timer() - infos->time_ref, philos->id + 1);
+	printf("%6dms   %d   is eating\n",
+	timer() - infos->time_ref, philos->id + 1);
 	pthread_mutex_unlock(&infos->mutex_stdout);
 	philos->last_meal = timer() - infos->time_ref;
 	usleep(infos->time_to_eat * T_MILLI);
