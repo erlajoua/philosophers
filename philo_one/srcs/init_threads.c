@@ -40,7 +40,6 @@ void	*faucheuse(void *arg)
 void	*philosophers(void *arg)
 {
 	void		**args;
-	void		*new_arg[2];
 	int			i;
 	t_info		*infos;
 	t_philo		*philos;
@@ -49,10 +48,7 @@ void	*philosophers(void *arg)
 	args = (void **)arg;
 	infos = (t_info *)args[0];
 	philos = (t_philo *)args[1];
-	new_arg[0] = (void *)infos;
-	new_arg[1] = (void *)philos;
 	i = 0;
-	(void)new_arg;
 	pthread_create(&reaper, NULL, &faucheuse, arg);
 	while (!infos->crever)
 	{
