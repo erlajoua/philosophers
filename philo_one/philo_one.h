@@ -6,7 +6,7 @@
 /*   By: erlajoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 15:19:49 by erlajoua          #+#    #+#             */
-/*   Updated: 2021/04/05 11:50:25 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/24 11:53:11 by erlajoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct s_philo	t_philo;
 
 struct					s_info
 {
-	int		nb_philos;
+	int					nb_philos;
 	unsigned int		time_to_die;
 	unsigned int		time_to_eat;
 	unsigned int		time_to_sleep;
@@ -58,20 +58,20 @@ struct					s_info
 };
 typedef struct s_info	t_info;
 
-int					init_threads(t_info *infos, t_philo *philos);
-int					ft_atoi(char *);
-int					ft_strlen(char *str);
-void				init_params(t_info *infos, char **av);
-void				ft_putstr_fd(char *str, int fd);
-void				ft_error(int index);
-void				philo_eat(t_info *infos, t_philo *philos);
-void				philo_sleep(t_info *infos, t_philo *philos);
-void				philo_think(t_info *infos, t_philo *philos);
-void				join_and_destroy(t_info *infos, pthread_mutex_t *forks);
-void				*ft_memset(void *b, int c, size_t len);
-void				ft_putnbr(int nb);
-unsigned int		timer(void);
-t_philo				*init_philos(t_info *infos);
-pthread_mutex_t		*init_forks(t_info *infos, t_philo *philos);
+int						init_threads(t_info *infos, t_philo *philos);
+int						ft_atoi(char *str);
+int						ft_strlen(char *str);
+void					init_params(t_info *infos, char **av);
+void					ft_putstr_fd(char *str, int fd);
+void					ft_error(int index);
+void					philo_eat(t_info *infos, t_philo *philos);
+void					philo_sleep(t_info *infos, t_philo *philos);
+void					philo_think(t_info *infos, t_philo *philos);
+void					join_and_destroy(t_info *infos, pthread_mutex_t *forks);
+void					*ft_memset(void *b, int c, size_t len);
+void					ft_putnbr(int nb);
+unsigned int			timer(void);
+t_philo					*init_philos(t_info *infos);
+pthread_mutex_t			*init_forks(t_info *infos, t_philo *philos);
 
 #endif
