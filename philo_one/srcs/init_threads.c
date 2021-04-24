@@ -6,7 +6,7 @@
 /*   By: erlajoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 17:07:56 by erlajoua          #+#    #+#             */
-/*   Updated: 2021/04/23 19:04:21 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/24 11:29:11 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	*faucheuse(void *arg)
 		{
 			infos->crever = 1;
 			pthread_mutex_lock(&infos->mutex_stdout);
-			printf("[%6dms] |%d| is dead\n", timing, philos->id + 1);
+			printf("%6dms   %d   died\n", timing, philos->id + 1);
 			pthread_mutex_unlock(&infos->mutex_stdout);
 		}
 	}

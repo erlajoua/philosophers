@@ -22,7 +22,7 @@ int		main(int ac, char **av)
 	memset(&infos, 0, sizeof(t_info));
 	if (ac != 5)
 	{
-		printf("usage %s [nb_phils] [t_die] [t_eat] [t_sleep]\n", av[0]);
+		printf("usage %s [nb_phils] [t_die] [t_eat] [t_sleep] (nb_meal_max)\n", av[0]);
 		return (0);
 	}
 	init_params(&infos, av);
