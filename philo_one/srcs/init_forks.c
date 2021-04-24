@@ -12,27 +12,29 @@
 
 #include "../philo_one.h"
 
+static int			init_mutex_stdout(t_info *infos)
+{
+	if (pthread_mutex_init(&infos->mutex_stdout, NULL))
+		return (0);
+	return (1);
+}
+
 pthread_mutex_t		*init_forks(t_info *infos, t_philo *philos)
 {
 	int					i;
 	pthread_mutex_t		*forks;
 
-	i = 0;
 	forks = malloc(sizeof(pthread_mutex_t) * infos->nb_philos);
 	if (!forks)
 		return (NULL);
 	i = 0;
 	while (i < infos->nb_philos)
 	{
-		if (pthread_mutex_init(&forks[i], NULL))
-		{
-			printf("error init forks\n");
+		if (pthread_mutex_init(&forks[i], NULL)
+		|| (i == 0 && !init_mutex_stdout(infos)))
 			return (NULL);
-		}
 		i++;
 	}
-	if (pthread_mutex_init(&infos->mutex_stdout, NULL))
-		return (NULL);
 	i = 0;
 	while (i < infos->nb_philos)
 	{

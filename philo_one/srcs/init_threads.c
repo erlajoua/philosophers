@@ -14,10 +14,10 @@
 
 void	*faucheuse(void *arg)
 {
-	void		**args;
-	t_philo		*philos;
-	t_info		*infos;
-	unsigned	int		timing;
+	void			**args;
+	t_philo			*philos;
+	t_info			*infos;
+	unsigned int	timing;
 
 	args = (void **)arg;
 	infos = (t_info *)args[0];
@@ -39,12 +39,12 @@ void	*faucheuse(void *arg)
 
 void	*philosophers(void *arg)
 {
-	void	**args;
-	void	*new_arg[2];
-	int		i;
-	t_info	*infos;
-	t_philo *philos;
-	pthread_t reaper;
+	void		**args;
+	void		*new_arg[2];
+	int			i;
+	t_info		*infos;
+	t_philo		*philos;
+	pthread_t	reaper;
 
 	args = (void **)arg;
 	infos = (t_info *)args[0];
@@ -52,11 +52,12 @@ void	*philosophers(void *arg)
 	new_arg[0] = (void *)infos;
 	new_arg[1] = (void *)philos;
 	i = 0;
-	pthread_create(&reaper, NULL, &faucheuse, new_arg);
+	(void)new_arg;
+	pthread_create(&reaper, NULL, &faucheuse, arg);
 	while (!infos->crever)
-	{	
+	{
 		pthread_detach(reaper);
-		pthread_create(&reaper, NULL, &faucheuse, new_arg);
+		pthread_create(&reaper, NULL, &faucheuse, arg);
 		philo_eat(infos, philos);
 		philo_sleep(infos, philos);
 		philo_think(infos, philos);
@@ -68,12 +69,18 @@ void	*philosophers(void *arg)
 
 void	check(t_info *infos, t_philo *philos)
 {
+	int i;
+
+	i = 0;
 	while (infos->crever != 1)
 		usleep(10);
 	if (infos->crever == 1)
 	{
-		for (int i = 0; i < infos->nb_philos; i++)
+		while (i < infos->nb_philos)
+		{
 			pthread_join(philos[i].th_phil, NULL);
+			i++;
+		}
 	}
 }
 
