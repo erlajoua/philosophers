@@ -12,21 +12,28 @@
 
 #include "../philo_one.h"
 
+int		finish(t_info *infos, t_philo *philos)
+{
+	if (infos->onedead == 1 || (int)infos->current_nb_meal >= infos->nb_philos)
+	{
+		pthread_mutex_unlock(&infos->mutex_stdout);
+		pthread_mutex_unlock(philos->fork_l);
+		pthread_mutex_unlock(philos->fork_r);
+		return (0);
+	}
+	return (1);
+}
+
 void	philo_eat(t_info *infos, t_philo *philos)
 {
-	if (infos->onedead == 1)
+	if (infos->onedead == 1 || (int)infos->current_nb_meal >= infos->nb_philos)
 		return ;
 	if (pthread_mutex_lock(philos->fork_l)
 	|| pthread_mutex_lock(philos->fork_r))
 		perror("error fourchette");
 	pthread_mutex_lock(&infos->mutex_stdout);
-	if (infos->onedead == 1)
-	{
-		pthread_mutex_unlock(&infos->mutex_stdout);
-		pthread_mutex_unlock(philos->fork_l);
-		pthread_mutex_unlock(philos->fork_r);
+	if (!finish(infos, philos))
 		return ;
-	}
 	printf("%6dms   %d   has taken a fork\n",
 	timer() - infos->time_ref, philos->id + 1);
 	printf("%6dms   %d   has taken a fork\n",
