@@ -17,7 +17,10 @@ void	philo_think(t_info *infos, t_philo *philos)
 
 	pthread_mutex_lock(&infos->mutex_stdout);
 	if ((int)infos->current_nb_meal >= infos->nb_philos)
+	{
+		pthread_mutex_unlock(&infos->mutex_stdout);
 		return ;
+	}
 	printf("%6dms   %d   is thinking\n",
 	timer() - infos->time_ref, philos->id + 1);
 	pthread_mutex_unlock(&infos->mutex_stdout);
