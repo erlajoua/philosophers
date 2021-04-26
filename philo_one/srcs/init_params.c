@@ -23,7 +23,7 @@ void	init_params(t_info *infos, int ac, char **av)
 	if (ac == 6)
 		infos->nb_meals_max = ft_atoi(av[5]);
 	else
-		infos->nb_meals_max = -1;
+		infos->nb_meals_max = 0;
 	infos->onedead = 0;
 	infos->current_nb_meal = 0;
 }

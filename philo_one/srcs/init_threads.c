@@ -63,7 +63,7 @@ void	*philosophers(void *arg)
 	return (NULL);
 }
 
-void	check(t_info *infos, t_philo *philos)
+void	philo_dead(t_info *infos, t_philo *philos)
 {
 	int i;
 
@@ -77,6 +77,24 @@ void	check(t_info *infos, t_philo *philos)
 			pthread_join(philos[i].th_phil, NULL);
 			i++;
 		}
+	}
+}
+
+void	check(t_info *infos, t_philo *philos)
+{
+	if (infos->nb_meals_max == 0)
+	{
+		philo_dead(infos, philos);
+		return ;
+	}
+	while (!infos->onedead && (int)infos->current_nb_meal < infos->nb_philos)
+		usleep(10);
+	if (infos->onedead && infos->current_nb_meal >= infos->nb_meals_max)
+	{
+		pthread_mutex_lock(&infos->mutex_stdout);
+			printf("%6dms   all phisolophers ate.\n",
+			timer() - infos->time_ref);
+		pthread_mutex_unlock(&infos->mutex_stdout);
 	}
 }
 
