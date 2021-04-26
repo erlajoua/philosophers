@@ -16,6 +16,7 @@ void	init_params(t_info *infos, int ac, char **av)
 {
 	infos->onedead = 0;
 	infos->time_ref = 0;
+	infos->time2 = 0;
 	infos->nb_philos = ft_atoi(av[1]);
 	infos->time_to_die = ft_atoi(av[2]);
 	infos->time_to_eat = ft_atoi(av[3]);

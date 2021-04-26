@@ -54,6 +54,7 @@ struct					s_info
 	unsigned int		nb_meals_max;
 	unsigned int		current_nb_meal;
 	unsigned int		time_ref;
+	unsigned int		time2;
 	pthread_mutex_t		mutex_stdout;
 	int					onedead;
 };
