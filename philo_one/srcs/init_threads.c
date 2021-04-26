@@ -89,13 +89,16 @@ void	check(t_info *infos, t_philo *philos)
 	}
 	while (!infos->onedead && (int)infos->current_nb_meal < infos->nb_philos)
 		usleep(10);
-	if (infos->onedead && infos->current_nb_meal >= infos->nb_meals_max)
+	if (!infos->onedead && infos->current_nb_meal >= infos->nb_meals_max)
 	{
 		pthread_mutex_lock(&infos->mutex_stdout);
 			printf("%6dms   all phisolophers ate.\n",
 			timer() - infos->time_ref);
 		pthread_mutex_unlock(&infos->mutex_stdout);
 	}
+	if (infos->onedead || infos->current_nb_meal >= infos->nb_meals_max)
+		philo_dead(infos, philos);
+	
 }
 
 int		init_threads(t_info *infos, t_philo *philos)
