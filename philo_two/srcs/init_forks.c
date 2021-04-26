@@ -15,6 +15,8 @@
 void			init_forks(t_info *infos, t_philo *philos)
 {
 	(void)philos;
-	sem_init(&infos->sem_stdout, 0, 1);
-	sem_init(&infos->forks, 0, infos->nb_philos);
+	sem_unlink("stdout");
+	sem_unlink("forks");
+	infos->sem_stdout = sem_open("stdout", O_CREAT | O_EXCL, S_IRWXU, 1);
+	infos->forks = sem_open("forks", O_CREAT | O_EXCL, S_IRWXU, infos->nb_philos);
 }

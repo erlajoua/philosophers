@@ -16,8 +16,8 @@ void	philo_think(t_info *infos, t_philo *philos)
 {
 	if (infos->crever == 1)
 		return ;
-	sem_wait(&infos->sem_stdout);
+	sem_wait(infos->sem_stdout);
 	printf("%6dms   %d   is thinking\n",
 	timer() - infos->time_ref, philos->id + 1);
-	sem_post(&infos->sem_stdout);
+	sem_post(infos->sem_stdout);
 }

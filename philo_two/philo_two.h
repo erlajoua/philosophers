@@ -21,6 +21,8 @@
 # include <string.h>
 # include <semaphore.h>
 # include <sys/time.h>
+# include <fcntl.h>
+# include <sys/stat.h>
 
 # define T_MILLI 1000
 
@@ -52,8 +54,8 @@ struct					s_info
 	unsigned int		time_to_sleep;
 	int					one_dead;
 	unsigned int		time_ref;
-	sem_t				sem_stdout;
-	sem_t				forks;
+	sem_t				*sem_stdout;
+	sem_t				*forks;
 	int					crever;
 };
 typedef struct s_info	t_info;

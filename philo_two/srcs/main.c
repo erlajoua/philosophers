@@ -32,6 +32,7 @@ int		main(int ac, char **av)
 	if (!(init_threads(&infos, philos)))
 		ft_error(MALLOC);
 	//join_and_destroy(&infos, forks);
-	sem_destroy(&infos.forks);
+	sem_close(infos.sem_stdout);
+	sem_close(infos.forks);
 	free(philos);
 }
