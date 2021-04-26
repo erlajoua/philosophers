@@ -14,7 +14,7 @@
 
 int		finish(t_info *infos, t_philo *philos)
 {
-	if (infos->onedead == 1 || (int)infos->current_nb_meal >= infos->nb_philos)
+	if (infos->onedead == 1)
 	{
 		pthread_mutex_unlock(&infos->mutex_stdout);
 		pthread_mutex_unlock(philos->fork_l);
@@ -26,7 +26,7 @@ int		finish(t_info *infos, t_philo *philos)
 
 void	philo_eat(t_info *infos, t_philo *philos)
 {
-	if (infos->onedead == 1 || (int)infos->current_nb_meal >= infos->nb_philos)
+	if (infos->onedead == 1)
 		return ;
 	if (pthread_mutex_lock(philos->fork_l)
 	|| pthread_mutex_lock(philos->fork_r))
