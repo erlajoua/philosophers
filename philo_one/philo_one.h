@@ -51,17 +51,18 @@ struct					s_info
 	unsigned int		time_to_die;
 	unsigned int		time_to_eat;
 	unsigned int		time_to_sleep;
-	int					one_dead;
+	unsigned int		nb_meals_max;
+	unsigned int		current_nb_meal;
 	unsigned int		time_ref;
 	pthread_mutex_t		mutex_stdout;
-	int					crever;
+	int					onedead;
 };
 typedef struct s_info	t_info;
 
 int						init_threads(t_info *infos, t_philo *philos);
 int						ft_atoi(char *str);
 int						ft_strlen(char *str);
-void					init_params(t_info *infos, char **av);
+void					init_params(t_info *infos, int ac, char **av);
 void					ft_putstr_fd(char *str, int fd);
 void					ft_error(int index);
 void					philo_eat(t_info *infos, t_philo *philos);

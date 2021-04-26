@@ -14,7 +14,7 @@
 
 void	philo_think(t_info *infos, t_philo *philos)
 {
-	if (infos->crever == 1)
+	if (infos->onedead == 1)
 		return ;
 	pthread_mutex_lock(&infos->mutex_stdout);
 	printf("%6dms   %d   is thinking\n",

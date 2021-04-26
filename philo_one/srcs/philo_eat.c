@@ -14,13 +14,13 @@
 
 void	philo_eat(t_info *infos, t_philo *philos)
 {
-	if (infos->crever == 1)
+	if (infos->onedead == 1)
 		return ;
 	if (pthread_mutex_lock(philos->fork_l)
 	|| pthread_mutex_lock(philos->fork_r))
 		perror("error fourchette");
 	pthread_mutex_lock(&infos->mutex_stdout);
-	if (infos->crever == 1)
+	if (infos->onedead == 1)
 	{
 		pthread_mutex_unlock(&infos->mutex_stdout);
 		pthread_mutex_unlock(philos->fork_l);

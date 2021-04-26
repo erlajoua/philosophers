@@ -18,14 +18,14 @@ int		main(int ac, char **av)
 	t_philo				*philos;
 	pthread_mutex_t		*forks;
 
-	infos.crever = 0;
+	infos.onedead = 0;
 	memset(&infos, 0, sizeof(t_info));
-	if (ac != 5)
+	if (ac != 5 && ac != 6)
 	{
 		printf("usage %s 2 500 300 100 (?)\n", av[0]);
 		return (0);
 	}
-	init_params(&infos, av);
+	init_params(&infos, ac, av);
 	if (!(philos = init_philos(&infos)))
 		ft_error(MALLOC);
 	if (!(forks = init_forks(&infos, philos)))
