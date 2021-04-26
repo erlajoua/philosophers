@@ -91,10 +91,10 @@ void	check(t_info *infos, t_philo *philos)
 		usleep(10);
 	if (!infos->onedead || infos->current_nb_meal >= infos->nb_meals_max)
 	{
+		usleep(1000 * T_MILLI);
 		pthread_mutex_lock(&infos->mutex_stdout);
 			printf("%6dms   all phisolophers ate.\n",
 			timer() - infos->time_ref);
-		usleep(1000 * T_MILLI);
 		pthread_mutex_unlock(&infos->mutex_stdout);
 	}
 	if (infos->onedead || infos->current_nb_meal >= infos->nb_meals_max)
