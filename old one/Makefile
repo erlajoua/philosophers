@@ -9,6 +9,7 @@ SRCS =	display.c \
 		init_params.c \
 		init_philos.c \
 		init_threads.c \
+		join_and_destroy.c \
 		main.c \
 		philo_eat.c \
 		philo_sleep.c \

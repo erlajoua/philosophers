@@ -12,9 +12,8 @@
 
 #include "../philo_two.h"
 
-void			init_forks(t_info *infos, t_philo *philos)
+void			init_forks(t_info *infos)
 {
-	(void)philos;
 	sem_unlink("stdout");
 	sem_unlink("forks");
 	infos->sem_stdout = sem_open("stdout", O_CREAT | O_EXCL, S_IRWXU, 1);

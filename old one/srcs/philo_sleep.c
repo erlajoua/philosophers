@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_params.c                                      :+:      :+:    :+:   */
+/*   philo_sleep.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: erlajoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/24 17:01:57 by erlajoua          #+#    #+#             */
-/*   Updated: 2021/03/25 10:21:50 by erlajoua         ###   ########.fr       */
+/*   Created: 2021/03/25 10:59:13 by erlajoua          #+#    #+#             */
+/*   Updated: 2021/04/05 11:52:54 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo_two.h"
 
-void	init_params(t_info *infos, int ac, char **av)
+void	philo_sleep(t_info *infos, t_philo *philos)
 {
-	infos->onedead = 0;
-	infos->time_ref = 0;
-	infos->time2 = 0;
-	infos->nb_philos = ft_atoi(av[1]);
-	infos->time_to_die = ft_atoi(av[2]);
-	infos->time_to_eat = ft_atoi(av[3]);
-	infos->time_to_sleep = ft_atoi(av[4]);
-	if (ac == 6)
-		infos->nb_meals_max = ft_atoi(av[5]);
-	else
-		infos->nb_meals_max = 0;
-	infos->onedead = 0;
-	infos->current_nb_meal = 0;
+	if (infos->crever == 1)
+		return ;
+	sem_wait(infos->sem_stdout);
+	printf("%6dms   %d   is sleeping\n",
+	timer() - infos->time_ref, philos->id + 1);
+	sem_post(infos->sem_stdout);
+	usleep(infos->time_to_sleep * T_MILLI);
 }

@@ -1,30 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_params.c                                      :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: erlajoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/24 17:01:57 by erlajoua          #+#    #+#             */
-/*   Updated: 2021/03/25 10:21:50 by erlajoua         ###   ########.fr       */
+/*   Created: 2021/03/19 15:22:46 by erlajoua          #+#    #+#             */
+/*   Updated: 2021/03/19 15:22:54 by erlajoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo_two.h"
 
-void	init_params(t_info *infos, int ac, char **av)
+int		ft_atoi(char *str)
 {
-	infos->onedead = 0;
-	infos->time_ref = 0;
-	infos->time2 = 0;
-	infos->nb_philos = ft_atoi(av[1]);
-	infos->time_to_die = ft_atoi(av[2]);
-	infos->time_to_eat = ft_atoi(av[3]);
-	infos->time_to_sleep = ft_atoi(av[4]);
-	if (ac == 6)
-		infos->nb_meals_max = ft_atoi(av[5]);
-	else
-		infos->nb_meals_max = 0;
-	infos->onedead = 0;
-	infos->current_nb_meal = 0;
+	int i;
+	int ret;
+	int sign;
+
+	i = 0;
+	ret = 0;
+	sign = 1;
+	while (str[i] >= 9 && str[i] <= 13)
+		i++;
+	while (str[i] == '+' || str[i] == '-')
+	{
+		if (str[i] == '-')
+			sign *= -1;
+		i++;
+	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		ret = ret * 10 + str[i] - 48;
+		i++;
+	}
+	return (ret * sign);
 }

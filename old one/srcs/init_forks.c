@@ -1,30 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_params.c                                      :+:      :+:    :+:   */
+/*   init_forks.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: erlajoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/24 17:01:57 by erlajoua          #+#    #+#             */
-/*   Updated: 2021/03/25 10:21:50 by erlajoua         ###   ########.fr       */
+/*   Created: 2021/03/24 17:02:02 by erlajoua          #+#    #+#             */
+/*   Updated: 2021/04/05 11:52:30 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo_two.h"
 
-void	init_params(t_info *infos, int ac, char **av)
+void			init_forks(t_info *infos, t_philo *philos)
 {
-	infos->onedead = 0;
-	infos->time_ref = 0;
-	infos->time2 = 0;
-	infos->nb_philos = ft_atoi(av[1]);
-	infos->time_to_die = ft_atoi(av[2]);
-	infos->time_to_eat = ft_atoi(av[3]);
-	infos->time_to_sleep = ft_atoi(av[4]);
-	if (ac == 6)
-		infos->nb_meals_max = ft_atoi(av[5]);
-	else
-		infos->nb_meals_max = 0;
-	infos->onedead = 0;
-	infos->current_nb_meal = 0;
+	(void)philos;
+	sem_unlink("stdout");
+	sem_unlink("forks");
+	infos->sem_stdout = sem_open("stdout", O_CREAT | O_EXCL, S_IRWXU, 1);
+	infos->forks = sem_open("forks", O_CREAT | O_EXCL, S_IRWXU, infos->nb_philos);
 }

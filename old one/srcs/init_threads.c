@@ -24,12 +24,11 @@ void	*faucheuse(void *arg)
 	philos = (t_philo *)args[1];
 	usleep(infos->time_to_die * T_MILLI);
 	timing = timer() - infos->time_ref;
-	if (infos->onedead != 1 && timing - philos->last_meal >= infos->time_to_die)
+	if (infos->crever != 1 && timing - philos->last_meal >= infos->time_to_die)
 	{
-		if (infos->onedead != 1 &&
-		(int)infos->current_nb_meal < infos->nb_philos)
+		if (infos->crever != 1)
 		{
-			infos->onedead = 1;
+			infos->crever = 1;
 			sem_wait(infos->sem_stdout);
 			printf("%6dms   %d   died\n", timing, philos->id + 1);
 			sem_post(infos->sem_stdout);
@@ -38,16 +37,10 @@ void	*faucheuse(void *arg)
 	return (NULL);
 }
 
-void	check_death(pthread_t *reaper, t_info *infos)
-{
-	if (!infos->onedead && infos->time2 == 0)
-		infos->time2 = timer() - infos->time_ref;
-	pthread_join(*reaper, NULL);
-}
-
 void	*philosophers(void *arg)
 {
 	void		**args;
+	int			i;
 	t_info		*infos;
 	t_philo		*philos;
 	pthread_t	reaper;
@@ -55,33 +48,29 @@ void	*philosophers(void *arg)
 	args = (void **)arg;
 	infos = (t_info *)args[0];
 	philos = (t_philo *)args[1];
+	i = 0;
 	pthread_create(&reaper, NULL, &faucheuse, arg);
-	while (!infos->onedead && (int)infos->current_nb_meal < infos->nb_philos)
+	while (!infos->crever)
 	{
 		pthread_detach(reaper);
 		pthread_create(&reaper, NULL, &faucheuse, arg);
 		philo_eat(infos, philos);
-		if (philos->nb_meals == infos->nb_meals_max)
-			infos->current_nb_meal++;
-		if ((int)infos->current_nb_meal >= infos->nb_philos)
-			break ;
 		philo_sleep(infos, philos);
-		if ((int)infos->current_nb_meal >= infos->nb_philos)
-			break ;
 		philo_think(infos, philos);
+		i++;
 	}
-	check_death(&reaper, infos);
+	pthread_join(reaper, NULL);
 	return (NULL);
 }
 
-void	philo_dead(t_info *infos, t_philo *philos)
+void	check(t_info *infos, t_philo *philos)
 {
 	int i;
 
 	i = 0;
-	while (infos->onedead != 1 && infos->current_nb_meal < infos->nb_meals_max)
+	while (infos->crever != 1)
 		usleep(10);
-	if (infos->onedead == 1 || infos->current_nb_meal >= infos->nb_meals_max)
+	if (infos->crever == 1)
 	{
 		while (i < infos->nb_philos)
 		{

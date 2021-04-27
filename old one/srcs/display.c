@@ -1,30 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_params.c                                      :+:      :+:    :+:   */
+/*   display.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: erlajoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/24 17:01:57 by erlajoua          #+#    #+#             */
-/*   Updated: 2021/03/25 10:21:50 by erlajoua         ###   ########.fr       */
+/*   Created: 2021/03/24 17:20:56 by erlajoua          #+#    #+#             */
+/*   Updated: 2021/04/05 11:30:16 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo_two.h"
 
-void	init_params(t_info *infos, int ac, char **av)
+void	ft_putchar(char c)
 {
-	infos->onedead = 0;
-	infos->time_ref = 0;
-	infos->time2 = 0;
-	infos->nb_philos = ft_atoi(av[1]);
-	infos->time_to_die = ft_atoi(av[2]);
-	infos->time_to_eat = ft_atoi(av[3]);
-	infos->time_to_sleep = ft_atoi(av[4]);
-	if (ac == 6)
-		infos->nb_meals_max = ft_atoi(av[5]);
-	else
-		infos->nb_meals_max = 0;
-	infos->onedead = 0;
-	infos->current_nb_meal = 0;
+	write(STDOUT_FILENO, &c, 1);
+}
+
+void	ft_putnbr(int nb)
+{
+	if (nb == -2147483648)
+	{
+		write(STDOUT_FILENO, "-2147483648", 11);
+		return ;
+	}
+	if (nb < 0)
+	{
+		nb = -nb;
+		write(STDOUT_FILENO, " ", 1);
+	}
+	if (nb > 10)
+		ft_putnbr(nb / 10);
+	ft_putchar(nb % 10 + '0');
+}
+
+void	ft_putstr_fd(char *str, int fd)
+{
+	write(fd, str, ft_strlen(str));
 }

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_one.h                                        :+:      :+:    :+:   */
+/*   philo_two.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: erlajoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_ONE_H
-# define PHILO_ONE_H
+#ifndef philo_two_H
+# define philo_two_H
 
 # include <stdio.h>
 # include <pthread.h>
@@ -52,33 +52,27 @@ struct					s_info
 	unsigned int		time_to_die;
 	unsigned int		time_to_eat;
 	unsigned int		time_to_sleep;
-	unsigned int		nb_meals_max;
-	unsigned int		current_nb_meal;
+	int					one_dead;
 	unsigned int		time_ref;
-	unsigned int		time2;
 	sem_t				*sem_stdout;
 	sem_t				*forks;
-	int					onedead;
+	int					crever;
 };
 typedef struct s_info	t_info;
 
 int						init_threads(t_info *infos, t_philo *philos);
 int						ft_atoi(char *str);
 int						ft_strlen(char *str);
-void					init_params(t_info *infos, int ac, char **av);
+void					init_params(t_info *infos, char **av);
 void					ft_putstr_fd(char *str, int fd);
 void					ft_error(int index);
 void					philo_eat(t_info *infos, t_philo *philos);
 void					philo_sleep(t_info *infos, t_philo *philos);
 void					philo_think(t_info *infos, t_philo *philos);
-void					join_and_destroy(t_info *infos, pthread_mutex_t *forks);
 void					*ft_memset(void *b, int c, size_t len);
 void					ft_putnbr(int nb);
-void					check(t_info *infos, t_philo *philos);
 unsigned int			timer(void);
 t_philo					*init_philos(t_info *infos);
-void					init_forks(t_info *infos);
-void					philo_dead(t_info *infos, t_philo *philos);
-
+void					init_forks(t_info *infos, t_philo *philos);
 
 #endif

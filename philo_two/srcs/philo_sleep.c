@@ -14,7 +14,7 @@
 
 void	philo_sleep(t_info *infos, t_philo *philos)
 {
-	if (infos->crever == 1)
+	if (infos->onedead == 1)
 		return ;
 	sem_wait(infos->sem_stdout);
 	printf("%6dms   %d   is sleeping\n",

@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_params.c                                      :+:      :+:    :+:   */
+/*   init_philos.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: erlajoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/24 17:01:57 by erlajoua          #+#    #+#             */
-/*   Updated: 2021/03/25 10:21:50 by erlajoua         ###   ########.fr       */
+/*   Created: 2021/03/25 10:19:01 by erlajoua          #+#    #+#             */
+/*   Updated: 2021/03/25 10:19:19 by erlajoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo_two.h"
 
-void	init_params(t_info *infos, int ac, char **av)
+t_philo		*init_philos(t_info *infos)
 {
-	infos->onedead = 0;
-	infos->time_ref = 0;
-	infos->time2 = 0;
-	infos->nb_philos = ft_atoi(av[1]);
-	infos->time_to_die = ft_atoi(av[2]);
-	infos->time_to_eat = ft_atoi(av[3]);
-	infos->time_to_sleep = ft_atoi(av[4]);
-	if (ac == 6)
-		infos->nb_meals_max = ft_atoi(av[5]);
-	else
-		infos->nb_meals_max = 0;
-	infos->onedead = 0;
-	infos->current_nb_meal = 0;
+	t_philo		*philos;
+	int			i;
+
+	i = 0;
+	philos = malloc(sizeof(t_philo) * infos->nb_philos);
+	if (!philos)
+		return (NULL);
+	memset(philos, 0, sizeof(t_philo));
+	while (i < infos->nb_philos)
+	{
+		philos[i].last_meal = 0;
+		philos[i].id = i;
+		i++;
+	}
+	return (philos);
 }

@@ -12,29 +12,21 @@
 
 #include "../philo_two.h"
 
-int		finish(t_info *infos)
-{
-	if (infos->onedead == 1)
-	{
-		sem_post(infos->sem_stdout);
-		sem_post(infos->forks);
-		sem_post(infos->forks);
-		return (0);
-	}
-	return (1);
-}
-
 void	philo_eat(t_info *infos, t_philo *philos)
 {
-	philos->nb_meals++;
-	if (infos->onedead == 1)
+	if (infos->crever == 1)
 		return ;
 	if (sem_wait(infos->forks)
 	|| sem_wait(infos->forks))
 		perror("error fourchette");
 	sem_wait(infos->sem_stdout);
-	if (!finish(infos))
+	if (infos->crever == 1)
+	{
+		sem_post(infos->sem_stdout);
+		sem_post(infos->forks);
+		sem_post(infos->forks);
 		return ;
+	}
 	printf("%6dms   %d   has taken a fork\n",
 	timer() - infos->time_ref, philos->id + 1);
 	printf("%6dms   %d   has taken a fork\n",

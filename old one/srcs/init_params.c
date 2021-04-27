@@ -12,19 +12,13 @@
 
 #include "../philo_two.h"
 
-void	init_params(t_info *infos, int ac, char **av)
+void	init_params(t_info *infos, char **av)
 {
-	infos->onedead = 0;
+	infos->crever = 0;
 	infos->time_ref = 0;
-	infos->time2 = 0;
 	infos->nb_philos = ft_atoi(av[1]);
 	infos->time_to_die = ft_atoi(av[2]);
 	infos->time_to_eat = ft_atoi(av[3]);
 	infos->time_to_sleep = ft_atoi(av[4]);
-	if (ac == 6)
-		infos->nb_meals_max = ft_atoi(av[5]);
-	else
-		infos->nb_meals_max = 0;
-	infos->onedead = 0;
-	infos->current_nb_meal = 0;
+	infos->one_dead = 0;
 }
