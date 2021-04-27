@@ -91,7 +91,7 @@ void	check(t_info *infos, t_philo *philos)
 	}
 	while (!infos->onedead && (int)infos->current_nb_meal < infos->nb_philos)
 		usleep(10);
-	if (!infos->onedead || infos->current_nb_meal >= infos->nb_meals_max)
+	if ((!infos->onedead || infos->current_nb_meal >= infos->nb_meals_max) && infos->time2)
 	{
 		usleep(1000 * T_MILLI);
 		pthread_mutex_lock(&infos->mutex_stdout);
