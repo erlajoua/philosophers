@@ -59,6 +59,8 @@ void	*philosophers(void *arg)
 		if ((int)infos->current_nb_meal >= infos->nb_philos)
 			break ;
 		philo_sleep(infos, philos);
+		if ((int)infos->current_nb_meal >= infos->nb_philos)
+			break ;
 		philo_think(infos, philos);
 	}
 	if (!infos->onedead)
