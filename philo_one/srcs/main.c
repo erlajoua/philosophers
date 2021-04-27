@@ -34,7 +34,6 @@ void	check(t_info *infos, t_philo *philos)
 	}
 	if (infos->onedead || infos->current_nb_meal >= infos->nb_meals_max)
 		philo_dead(infos, philos);
-	
 }
 
 int		main(int ac, char **av)

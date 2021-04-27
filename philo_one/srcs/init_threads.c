@@ -44,6 +44,7 @@ void	check_death(pthread_t *reaper, t_info *infos)
 		infos->time2 = timer() - infos->time_ref;
 	pthread_join(*reaper, NULL);
 }
+
 void	*philosophers(void *arg)
 {
 	void		**args;
