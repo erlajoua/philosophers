@@ -60,10 +60,7 @@ void	*philosophers(void *arg)
 		philo_think(infos, philos);
 	}
 	if (!infos->onedead)
-	{
-		printf("passage pour numero %d\n", philos->id + 1);
 		infos->time2 = timer() - infos->time_ref;
-	}
 	pthread_join(reaper, NULL);
 	return (NULL);
 }
