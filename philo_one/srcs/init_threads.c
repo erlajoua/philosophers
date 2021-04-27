@@ -56,6 +56,8 @@ void	*philosophers(void *arg)
 		philos->nb_meals++;
 		if (philos->nb_meals == infos->nb_meals_max)
 			infos->current_nb_meal++;
+		if ((int)infos->current_nb_meal >= infos->nb_philos)
+			break ;
 		philo_sleep(infos, philos);
 		philo_think(infos, philos);
 	}
