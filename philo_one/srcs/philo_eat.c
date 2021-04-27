@@ -26,6 +26,7 @@ int		finish(t_info *infos, t_philo *philos)
 
 void	philo_eat(t_info *infos, t_philo *philos)
 {
+	philos->nb_meals++;
 	if (infos->onedead == 1)
 		return ;
 	if (pthread_mutex_lock(philos->fork_l)

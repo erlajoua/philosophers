@@ -72,8 +72,10 @@ void					philo_think(t_info *infos, t_philo *philos);
 void					join_and_destroy(t_info *infos, pthread_mutex_t *forks);
 void					*ft_memset(void *b, int c, size_t len);
 void					ft_putnbr(int nb);
+void					check(t_info *infos, t_philo *philos);
 unsigned int			timer(void);
 t_philo					*init_philos(t_info *infos);
 pthread_mutex_t			*init_forks(t_info *infos, t_philo *philos);
+
 
 #endif

@@ -26,7 +26,8 @@ void	*faucheuse(void *arg)
 	timing = timer() - infos->time_ref;
 	if (infos->onedead != 1 && timing - philos->last_meal >= infos->time_to_die)
 	{
-		if (infos->onedead != 1 && (int)infos->current_nb_meal < infos->nb_philos)
+		if (infos->onedead != 1 &&
+		(int)infos->current_nb_meal < infos->nb_philos)
 		{
 			infos->onedead = 1;
 			pthread_mutex_lock(&infos->mutex_stdout);
@@ -37,6 +38,12 @@ void	*faucheuse(void *arg)
 	return (NULL);
 }
 
+void	check_death(pthread_t *reaper, t_info *infos)
+{
+	if (!infos->onedead && infos->time2 == 0)
+		infos->time2 = timer() - infos->time_ref;
+	pthread_join(*reaper, NULL);
+}
 void	*philosophers(void *arg)
 {
 	void		**args;
@@ -53,7 +60,6 @@ void	*philosophers(void *arg)
 		pthread_detach(reaper);
 		pthread_create(&reaper, NULL, &faucheuse, arg);
 		philo_eat(infos, philos);
-		philos->nb_meals++;
 		if (philos->nb_meals == infos->nb_meals_max)
 			infos->current_nb_meal++;
 		if ((int)infos->current_nb_meal >= infos->nb_philos)
@@ -63,9 +69,7 @@ void	*philosophers(void *arg)
 			break ;
 		philo_think(infos, philos);
 	}
-	if (!infos->onedead && infos->time2 == 0)
-		infos->time2 = timer() - infos->time_ref;
-	pthread_join(reaper, NULL);
+	check_death(&reaper, infos);
 	return (NULL);
 }
 
@@ -84,31 +88,6 @@ void	philo_dead(t_info *infos, t_philo *philos)
 			i++;
 		}
 	}
-}
-
-void	check(t_info *infos, t_philo *philos)
-{
-	if (infos->nb_meals_max == 0)
-	{
-		philo_dead(infos, philos);
-		return ;
-	}
-	while (!infos->onedead && (int)infos->current_nb_meal < infos->nb_philos)
-		usleep(10);
-	if ((!infos->onedead || infos->current_nb_meal >= infos->nb_meals_max))
-	{
-		usleep(1500 * T_MILLI);
-		pthread_mutex_lock(&infos->mutex_stdout);
-		if (infos->time2)
-		{
-			printf("%6dms   all philosophers ate.\n",
-			infos->time2);
-		}
-		pthread_mutex_unlock(&infos->mutex_stdout);
-	}
-	if (infos->onedead || infos->current_nb_meal >= infos->nb_meals_max)
-		philo_dead(infos, philos);
-	
 }
 
 int		init_threads(t_info *infos, t_philo *philos)

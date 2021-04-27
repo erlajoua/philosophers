@@ -21,9 +21,4 @@ void	philo_sleep(t_info *infos, t_philo *philos)
 	timer() - infos->time_ref, philos->id + 1);
 	pthread_mutex_unlock(&infos->mutex_stdout);
 	usleep(infos->time_to_sleep * T_MILLI);
-	/*if ((int)infos->current_nb_meal >= infos->nb_philos)
-	{
-		infos->time2 = timer() - infos->time_ref;
-		return ;
-	}*/
 }
