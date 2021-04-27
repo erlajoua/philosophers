@@ -63,7 +63,7 @@ void	*philosophers(void *arg)
 			break ;
 		philo_think(infos, philos);
 	}
-	if (!infos->onedead)
+	if (!infos->onedead && infos->time2 == 0)
 		infos->time2 = timer() - infos->time_ref;
 	pthread_join(reaper, NULL);
 	return (NULL);
