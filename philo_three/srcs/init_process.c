@@ -26,8 +26,7 @@ void	*faucheuse(void *arg)
 	timing = timer() - infos->time_ref;
 	if (infos->onedead != 1 && timing - philos->last_meal >= infos->time_to_die)
 	{
-		if (infos->onedead != 1 &&
-		infos->current_nb_meal < infos->nb_meals_max)
+		if (infos->onedead != 1)
 		{
 			infos->onedead = 1;
 			sem_wait(infos->sem_stdout);
