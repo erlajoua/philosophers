@@ -21,7 +21,7 @@ int		check_child(pid_t pid)
 	{
 		if (WEXITSTATUS(status) == 2)
 			return (2);
-		if (WEXITSTATUS(status == 4))
+		if (WEXITSTATUS(status) == 4)
 			return (4);
 	}
 	return (0);
