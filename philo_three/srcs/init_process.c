@@ -29,8 +29,10 @@ void	*faucheuse(void *arg)
 		if (infos->onedead != 1 &&
 		(int)infos->current_nb_meal < infos->nb_philos)
 		{
-			infos->onedead = 1;
 			sem_wait(infos->sem_stdout);
+			if (infos->onedead == 1)
+				exit(2);
+			infos->onedead = 1;
 			printf("%6dms   %d   died\n", timing, philos->id + 1);
 			sem_post(infos->sem_stdout);
 		}
