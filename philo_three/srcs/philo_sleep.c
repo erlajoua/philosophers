@@ -21,5 +21,4 @@ void	philo_sleep(t_info *infos, t_philo *philos)
 	timer() - infos->time_ref, philos->id + 1);
 	sem_post(infos->sem_stdout);
 	usleep(infos->time_to_sleep * T_MILLI);
-	printf("fini sleep de philo_eat [%d]\n", philos->id + 1);
 }
