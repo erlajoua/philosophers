@@ -89,7 +89,7 @@ int		init_process(t_info *infos, t_philo *philos, int *general)
 		philos[i].pid = fork();
 		if (philos[i].pid == 0)
 			philosophers(args);
-		usleep(80);
+		usleep(30);
 		i++;
 	}
 	check(infos, philos, general);
