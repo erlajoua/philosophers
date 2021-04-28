@@ -31,7 +31,7 @@ void	*faucheuse(void *arg)
 			infos->onedead = 1;
 			sem_wait(infos->sem_stdout);
 			printf("%6dms   %d   died\n", timing, philos->id + 1);
-			sem_post(infos->sem_stdout);
+			//sem_post(infos->sem_stdout);
 		}
 		exit(2);
 	}
