@@ -17,7 +17,12 @@ void	philo_think(t_info *infos, t_philo *philos)
 	if (infos->onedead == 1)
 		return ;
 	sem_wait(infos->sem_stdout);
-	printf("%6dms   %d   is thinking\n",
-	timer() - infos->time_ref, philos->id + 1);
+	//printf("%6dms   %d   is thinking\n",
+	//timer() - infos->time_ref, philos->id + 1);
+	ft_putnbr(timer() - infos->time_ref);
+	ft_putstr_fd("ms   ", STDOUT_FILENO);
+	ft_putnbr(philos->id + 1);
+	ft_putstr_fd("   is thinking\n", STDOUT_FILENO);
+	//
 	sem_post(infos->sem_stdout);
 }
