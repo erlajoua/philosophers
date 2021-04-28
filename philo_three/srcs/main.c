@@ -58,10 +58,8 @@ void	check(t_info *infos, t_philo *philos)
 	kill_all(philos, infos);
 	if (checker == 4)
 	{
-		sem_wait(infos->sem_stdout);
 		printf("%6dms   all philosophers ate.\n",
 		timer() - infos->time_ref);
-		sem_post(infos->sem_stdout);
 	}
 }
 
