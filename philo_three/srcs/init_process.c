@@ -77,22 +77,6 @@ void	*philosophers(void *arg)
 	return (NULL);
 }
 
-void	philo_dead(t_info *infos, t_philo *philos)
-{
-	int i;
-
-	i = 0;
-	while (infos->onedead != 1 && infos->current_nb_meal < infos->nb_meals_max)
-		usleep(10);
-	if (infos->onedead == 1 || infos->current_nb_meal >= infos->nb_meals_max)
-	{
-		while (i < infos->nb_philos)
-		{
-			pthread_join(philos[i].th_phil, NULL);
-			i++;
-		}
-	}
-}
 
 int		init_process(t_info *infos, t_philo *philos, int *general)
 {

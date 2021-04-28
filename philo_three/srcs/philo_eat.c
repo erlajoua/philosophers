@@ -26,7 +26,6 @@ int		finish(t_info *infos)
 
 void	philo_eat(t_info *infos, t_philo *philos)
 {
-	//printf("passage mgl\n");
 	if (infos->onedead == 1)
 		return ;
 	if (sem_wait(infos->forks)
@@ -44,6 +43,7 @@ void	philo_eat(t_info *infos, t_philo *philos)
 	sem_post(infos->sem_stdout);
 	philos->last_meal = timer() - infos->time_ref;
 	usleep(infos->time_to_eat * T_MILLI);
+	printf("fini eat de philo_eat [%d]\n", philos->id + 1);
 	if (sem_post(infos->forks)
 	|| sem_post(infos->forks))
 		perror("error fourchette");

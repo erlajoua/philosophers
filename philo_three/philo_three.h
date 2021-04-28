@@ -81,6 +81,5 @@ void					check(t_info *infos, t_philo *philos, int *general);
 unsigned int			timer(void);
 t_philo					*init_philos(t_info *infos);
 void					init_forks(t_info *infos);
-void					philo_dead(t_info *infos, t_philo *philos);
 
 #endif
