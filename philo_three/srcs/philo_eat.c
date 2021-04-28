@@ -26,7 +26,6 @@ int		finish(t_info *infos)
 
 void	philo_eat(t_info *infos, t_philo *philos)
 {
-	philos->nb_meals++;
 	if (infos->onedead == 1)
 		return ;
 	if (sem_wait(infos->forks)
