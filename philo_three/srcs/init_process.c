@@ -64,15 +64,17 @@ void	*philosophers(void *arg)
 		pthread_create(&reaper, NULL, &faucheuse, arg);
 		philo_eat(infos, philos);
 		philos->nb_meals++;
-		//printf("philo nb meal : %d\n", philos->nb_meals);
 		if (infos->nb_meals_max != 0 && philos->nb_meals >= infos->nb_meals_max)
 			break ;
 		philo_sleep(infos, philos);
+		if (infos->nb_meals_max != 0 && philos->nb_meals >= infos->nb_meals_max)
+			break ;
 		philo_think(infos, philos);
 	}
-	check_death(&reaper, infos);
+	pthread_detach(reaper);
+	//pthread_join(reaper, 0);
 	if (philos->nb_meals >= infos->nb_meals_max)
-		exit(4);
+		exit(3);
 	exit(2);
 	return (NULL);
 }

@@ -21,11 +21,11 @@ int		check_child(pid_t pid, int *general, t_info *infos)
 	{
 		if (WEXITSTATUS(status) == 2)
 			return (2);
-		if (WEXITSTATUS(status) == 4)
+		if (WEXITSTATUS(status) == 3)
 		{
 			*general = *general + 1;
 			if (*general >= infos->nb_philos)
-				return (4);
+				return (3);
 		}
 	}
 	return (0);
@@ -52,7 +52,7 @@ void	check(t_info *infos, t_philo *philos, int *general)
 	while (i < infos->nb_philos)
 	{
 		checker = check_child(philos[i].pid, general, infos);
-		if (checker == 2 || checker == 4)
+		if (checker == 2 || checker == 3)
 			break ;
 		i++;
 		if (i == infos->nb_philos)
@@ -60,7 +60,7 @@ void	check(t_info *infos, t_philo *philos, int *general)
 	}
 	//printf("checker : %d\n", checker);
 	kill_all(philos, infos);
-	if (checker == 4)
+	if (checker == 3)
 	{
 		printf("%6dms   all philosophers ate.\n",
 		timer() - infos->time_ref);
