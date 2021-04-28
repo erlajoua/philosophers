@@ -34,27 +34,12 @@ void	philo_eat(t_info *infos, t_philo *philos)
 	sem_wait(infos->sem_stdout);
 	if (!finish(infos))
 		return ;
-	//printf("%6dms   %d   has taken a fork\n",
-	//timer() - infos->time_ref, philos->id + 1);
-	ft_putnbr(timer() - infos->time_ref);
-	ft_putstr_fd("ms   ", STDOUT_FILENO);
-	ft_putnbr(philos->id + 1);
-	ft_putstr_fd("   has taken a fork\n", STDOUT_FILENO);
-	//
-	//printf("%6dms   %d   has taken a fork\n",
-	//	timer() - infos->time_ref, philos->id + 1);
-	ft_putnbr(timer() - infos->time_ref);
-	ft_putstr_fd("ms   ", STDOUT_FILENO);
-	ft_putnbr(philos->id + 1);
-	ft_putstr_fd("   has taken a fork\n", STDOUT_FILENO);
-	//
-	//printf("%6dms   %d   is eating\n",
-	//timer() - infos->time_ref, philos->id + 1);
-	ft_putnbr(timer() - infos->time_ref);
-	ft_putstr_fd("ms   ", STDOUT_FILENO);
-	ft_putnbr(philos->id + 1);
-	ft_putstr_fd("   is eating\n", STDOUT_FILENO);
-	//
+	printf("%6dms   %d   has taken a fork\n",
+	timer() - infos->time_ref, philos->id + 1);
+	printf("%6dms   %d   has taken a fork\n",
+		timer() - infos->time_ref, philos->id + 1);
+	printf("%6dms   %d   is eating\n",
+	timer() - infos->time_ref, philos->id + 1);
 	sem_post(infos->sem_stdout);
 	philos->last_meal = timer() - infos->time_ref;
 	usleep(infos->time_to_eat * T_MILLI);

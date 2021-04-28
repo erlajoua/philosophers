@@ -24,17 +24,13 @@ void	*faucheuse(void *arg)
 	philos = (t_philo *)args[1];
 	usleep(infos->time_to_die * T_MILLI);
 	timing = timer() - infos->time_ref;
-	if (infos->onedead != 1 && timing - philos->last_meal >= infos->time_to_die)
+	if (timing-- && timing - philos->last_meal >= infos->time_to_die)
 	{
 		if (infos->onedead != 1)
 		{
 			infos->onedead = 1;
 			sem_wait(infos->sem_stdout);
-			ft_putnbr(timing);
-			ft_putstr_fd("ms   ", STDOUT_FILENO);
-			ft_putnbr(philos->id + 1);
-			ft_putstr_fd("   died\n", STDOUT_FILENO);
-			//printf("%6dms   %d   died\n", timing - 1, philos->id + 1);
+			printf("%6dms   %d   died\n", timing, philos->id + 1);
 		}
 		exit(2);
 	}
