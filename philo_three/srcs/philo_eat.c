@@ -42,6 +42,7 @@ void	philo_eat(t_info *infos, t_philo *philos)
 	timer() - infos->time_ref, philos->id + 1);
 	sem_post(infos->sem_stdout);
 	philos->last_meal = timer() - infos->time_ref;
+	printf("début de eat pour [%d] a %dms pour une duree de %d\n", philos->id + 1, philos->last_meal, infos->time_to_eat);
 	usleep(infos->time_to_eat * T_MILLI);
 	printf("fini eat de philo_eat [%d]\n", philos->id + 1);
 	if (sem_post(infos->forks)
