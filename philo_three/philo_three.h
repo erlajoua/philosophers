@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_three.h                                        :+:    :+:    :+:   */
+/*   philo_three.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: erlajoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 15:19:49 by erlajoua          #+#    #+#             */
-/*   Updated: 2021/04/24 11:53:11 by erlajoua         ###   ########.fr       */
+/*   Updated: 2021/04/28 11:22:38 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_ONE_H
-# define PHILO_ONE_H
+#ifndef PHILO_THREE_H
+# define PHILO_THREE_H
 
 # include <stdio.h>
 # include <pthread.h>
@@ -65,7 +65,8 @@ struct					s_info
 };
 typedef struct s_info	t_info;
 
-int						init_process(t_info *infos, t_philo *philos, int *general);
+int						init_process(t_info *infos, t_philo *philos,
+						int *general);
 int						ft_atoi(char *str);
 int						ft_strlen(char *str);
 void					init_params(t_info *infos, int ac, char **av);

@@ -6,7 +6,7 @@
 /*   By: erlajoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 15:19:49 by erlajoua          #+#    #+#             */
-/*   Updated: 2021/04/24 11:53:11 by erlajoua         ###   ########.fr       */
+/*   Updated: 2021/04/28 11:23:34 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,5 @@ unsigned int			timer(void);
 t_philo					*init_philos(t_info *infos);
 pthread_mutex_t			*init_forks(t_info *infos, t_philo *philos);
 void					philo_dead(t_info *infos, t_philo *philos);
-
 
 #endif
