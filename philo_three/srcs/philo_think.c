@@ -18,6 +18,6 @@ void	philo_think(t_info *infos, t_philo *philos)
 		return ;
 	sem_wait(infos->sem_stdout);
 	printf("%6dms   %d   is thinking\n",
-	timer() - infos->time_ref, philos->id + 1);
+	timer(philos->time_ref), philos->id + 1);
 	sem_post(infos->sem_stdout);
 }

@@ -44,6 +44,7 @@ struct					s_philo
 	pthread_t			th_phil;
 	int					id;
 	unsigned int		last_meal;
+	unsigned int		time_ref;
 	unsigned int		nb_meals;
 	pid_t				pid;
 };
@@ -57,7 +58,6 @@ struct					s_info
 	unsigned int		time_to_sleep;
 	unsigned int		nb_meals_max;
 	unsigned int		current_nb_meal;
-	unsigned int		time_ref;
 	unsigned int		time2;
 	sem_t				*sem_stdout;
 	sem_t				*forks;
@@ -79,8 +79,9 @@ void					join_and_destroy(t_info *infos, pthread_mutex_t *forks);
 void					*ft_memset(void *b, int c, size_t len);
 void					ft_putnbr(int nb);
 void					check(t_info *infos, t_philo *philos, int *general);
-unsigned int			timer(void);
+unsigned int			timer(long start);
 t_philo					*init_philos(t_info *infos);
 void					init_forks(t_info *infos);
+void					ft_usleep(int duration);
 
 #endif

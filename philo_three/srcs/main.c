@@ -37,7 +37,7 @@ void	kill_all(t_philo *philos, t_info *infos)
 	int i;
 
 	i = 0;
-	usleep(infos->time_to_eat * T_MILLI);
+	ft_usleep(infos->time_to_eat);
 	while (i < infos->nb_philos)
 	{
 		kill(philos[i].pid, SIGKILL);
@@ -64,7 +64,7 @@ void	check(t_info *infos, t_philo *philos, int *general)
 	if (checker == 3)
 	{
 		printf("%6dms   all philosophers ate.\n",
-		timer() - infos->time_ref);
+		timer(philos->time_ref));
 	}
 }
 
@@ -86,7 +86,7 @@ int		main(int ac, char **av)
 	if (!(philos = init_philos(&infos)))
 		ft_error(MALLOC);
 	init_forks(&infos);
-	infos.time_ref = timer();
+	//infos.time_ref = timer(infos.time_ref);
 	if (!(init_process(&infos, philos, &general)))
 		ft_error(MALLOC);
 	sem_close(infos.forks);

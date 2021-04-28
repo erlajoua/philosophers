@@ -22,8 +22,8 @@ void	*faucheuse(void *arg)
 	args = (void **)arg;
 	infos = (t_info *)args[0];
 	philos = (t_philo *)args[1];
-	usleep(infos->time_to_die * T_MILLI);
-	timing = timer() - infos->time_ref;
+	ft_usleep(infos->time_to_die);
+	timing = timer(philos->time_ref);
 	if (timing-- && timing - philos->last_meal >= infos->time_to_die)
 	{
 		if (infos->onedead != 1)
@@ -59,6 +59,7 @@ void	*philosophers(void *arg)
 	infos = (t_info *)args[0];
 	philos = (t_philo *)args[1];
 	pthread_create(&reaper, NULL, &faucheuse, arg);
+	philos->time_ref = timer(0);
 	while (!infos->onedead && (infos->nb_meals_max == 0 ||
 	philos->nb_meals < infos->nb_meals_max))
 	{
@@ -82,7 +83,7 @@ int		init_process(t_info *infos, t_philo *philos, int *general)
 
 	i = 0;
 	args[0] = (void *)infos;
-	infos->time_ref = timer();
+	philos->time_ref = timer(philos->time_ref);
 	while (i < infos->nb_philos)
 	{
 		args[1] = (void *)&philos[i];

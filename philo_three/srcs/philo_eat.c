@@ -35,16 +35,16 @@ void	philo_eat(t_info *infos, t_philo *philos)
 	if (!finish(infos))
 		return ;
 	printf("%6dms   %d   has taken a fork\n",
-	timer() - infos->time_ref, philos->id + 1);
+	timer(philos->time_ref), philos->id + 1);
 	printf("%6dms   %d   has taken a fork\n",
-		timer() - infos->time_ref, philos->id + 1);
+		timer(philos->time_ref), philos->id + 1);
 	printf("%6dms   %d   is eating\n",
-	timer() - infos->time_ref, philos->id + 1);
+	timer(philos->time_ref), philos->id + 1);
 	sem_post(infos->sem_stdout);
-	philos->last_meal = timer() - infos->time_ref;
+	philos->last_meal = timer(philos->time_ref);
 	//printf("avant de usleep manger : %dms [%d]\n", philos->last_meal, philos->id + 1);
-	usleep(infos->time_to_eat * T_MILLI);
-	//printf("apres de usleep manger : %dms [%d]\n", timer() - infos->time_ref, philos->id + 1);
+	ft_usleep(infos->time_to_eat);
+	//printf("apres de usleep manger : %dms [%d]\n", timer() - philos->time_ref, philos->id + 1);
 	if (sem_post(infos->forks)
 	|| sem_post(infos->forks))
 		perror("error fourchette");
