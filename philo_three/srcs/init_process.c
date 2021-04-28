@@ -27,12 +27,10 @@ void	*faucheuse(void *arg)
 	if (infos->onedead != 1 && timing - philos->last_meal >= infos->time_to_die)
 	{
 		if (infos->onedead != 1 &&
-		(int)infos->current_nb_meal < infos->nb_philos)
+		infos->current_nb_meal < infos->nb_meals_max)
 		{
-			sem_wait(infos->sem_stdout);
-			if (infos->onedead == 1)
-				exit(2);
 			infos->onedead = 1;
+			sem_wait(infos->sem_stdout);
 			printf("%6dms   %d   died\n", timing, philos->id + 1);
 			sem_post(infos->sem_stdout);
 		}
@@ -65,7 +63,7 @@ void	*philosophers(void *arg)
 		pthread_create(&reaper, NULL, &faucheuse, arg);
 		philo_eat(infos, philos);
 		infos->current_nb_meal++;
-		if ((int)infos->current_nb_meal >= infos->nb_philos)
+		if (infos->nb_meals_max != 0 && infos->current_nb_meal >= infos->nb_meals_max)
 			break ;
 		philo_sleep(infos, philos);
 		philo_think(infos, philos);
@@ -94,7 +92,7 @@ void	philo_dead(t_info *infos, t_philo *philos)
 	}
 }
 
-int		init_process(t_info *infos, t_philo *philos)
+int		init_process(t_info *infos, t_philo *philos, int *general)
 {
 	int			i;
 	void		*args[2];
@@ -111,6 +109,6 @@ int		init_process(t_info *infos, t_philo *philos)
 		usleep(30);
 		i++;
 	}
-	check(infos, philos);
+	check(infos, philos, general);
 	return (1);
 }

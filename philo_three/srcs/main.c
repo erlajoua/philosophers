@@ -12,7 +12,7 @@
 
 #include "../philo_three.h"
 
-int		check_child(pid_t pid)
+int		check_child(pid_t pid, int *general, t_info *infos)
 {
 	int status;
 
@@ -22,7 +22,11 @@ int		check_child(pid_t pid)
 		if (WEXITSTATUS(status) == 2)
 			return (2);
 		if (WEXITSTATUS(status) == 4)
-			return (4);
+		{
+			*general = *general + 1;
+			if (*general >= infos->nb_philos)
+				return (4);
+		}
 	}
 	return (0);
 }
@@ -39,7 +43,7 @@ void	kill_all(t_philo *philos, t_info *infos)
 	}
 }
 
-void	check(t_info *infos, t_philo *philos)
+void	check(t_info *infos, t_philo *philos, int *general)
 {
 	int		checker;
 	int		i;
@@ -47,7 +51,7 @@ void	check(t_info *infos, t_philo *philos)
 	i = 0;
 	while (i < infos->nb_philos)
 	{
-		checker = check_child(philos[i].pid);
+		checker = check_child(philos[i].pid, general, infos);
 		if (checker == 2 || checker == 4)
 			break ;
 		i++;
@@ -67,7 +71,9 @@ int		main(int ac, char **av)
 {
 	t_info				infos;
 	t_philo				*philos;
+	int					general;
 
+	general = 0;
 	infos.onedead = 0;
 	memset(&infos, 0, sizeof(t_info));
 	if (ac != 5 && ac != 6)
@@ -80,7 +86,7 @@ int		main(int ac, char **av)
 		ft_error(MALLOC);
 	init_forks(&infos);
 	infos.time_ref = timer();
-	if (!(init_process(&infos, philos)))
+	if (!(init_process(&infos, philos, &general)))
 		ft_error(MALLOC);
 	sem_close(infos.forks);
 	sem_close(infos.sem_stdout);

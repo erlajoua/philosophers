@@ -65,7 +65,7 @@ struct					s_info
 };
 typedef struct s_info	t_info;
 
-int						init_process(t_info *infos, t_philo *philos);
+int						init_process(t_info *infos, t_philo *philos, int *general);
 int						ft_atoi(char *str);
 int						ft_strlen(char *str);
 void					init_params(t_info *infos, int ac, char **av);
@@ -77,7 +77,7 @@ void					philo_think(t_info *infos, t_philo *philos);
 void					join_and_destroy(t_info *infos, pthread_mutex_t *forks);
 void					*ft_memset(void *b, int c, size_t len);
 void					ft_putnbr(int nb);
-void					check(t_info *infos, t_philo *philos);
+void					check(t_info *infos, t_philo *philos, int *general);
 unsigned int			timer(void);
 t_philo					*init_philos(t_info *infos);
 void					init_forks(t_info *infos);
