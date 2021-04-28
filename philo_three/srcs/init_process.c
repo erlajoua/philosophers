@@ -6,7 +6,7 @@
 /*   By: erlajoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 17:07:56 by erlajoua          #+#    #+#             */
-/*   Updated: 2021/04/24 11:29:11 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/28 11:25:40 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	*faucheuse(void *arg)
 		{
 			infos->onedead = 1;
 			sem_wait(infos->sem_stdout);
-			printf("%6dms   %d   died\n", timing, philos->id + 1);
+			printf("%6dms   %d   died\n", timing - 1, philos->id + 1);
 		}
 		exit(2);
 	}
