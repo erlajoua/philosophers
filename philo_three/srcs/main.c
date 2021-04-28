@@ -54,6 +54,7 @@ void	check(t_info *infos, t_philo *philos)
 		if (i == infos->nb_philos)
 			i = 0;
 	}
+	printf("checker : %d\n", checker);
 	kill_all(philos, infos);
 	if (checker == 4)
 	{
