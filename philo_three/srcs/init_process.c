@@ -41,7 +41,10 @@ void	exit_philo(t_philo *philos, t_info *infos, pthread_t *reaper)
 {
 	pthread_detach(*reaper);
 	if (philos->nb_meals >= infos->nb_meals_max)
+	{
+		//printf("exit 3 pour [%d]\n", philos->id + 1);
 		exit(3);
+	}
 	exit(2);
 }
 

@@ -24,6 +24,7 @@ int		check_child(pid_t pid, int *general, t_info *infos)
 		if (WEXITSTATUS(status) == 3)
 		{
 			*general = *general + 1;
+			//printf("general : %d\n", *general);
 			if (*general >= infos->nb_philos)
 				return (3);
 		}
@@ -36,6 +37,7 @@ void	kill_all(t_philo *philos, t_info *infos)
 	int i;
 
 	i = 0;
+	usleep(infos->time_to_eat * T_MILLI);
 	while (i < infos->nb_philos)
 	{
 		kill(philos[i].pid, SIGKILL);
