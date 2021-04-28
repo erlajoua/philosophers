@@ -26,7 +26,7 @@ int		finish(t_info *infos)
 
 void	philo_eat(t_info *infos, t_philo *philos)
 {
-	printf("passage mgl\n");
+	//printf("passage mgl\n");
 	if (infos->onedead == 1)
 		return ;
 	if (sem_wait(infos->forks)
