@@ -48,5 +48,5 @@ void	philo_eat(t_info *infos, t_philo *philos)
 	if (sem_post(infos->forks)
 	|| sem_post(infos->forks))
 		perror("error fourchette");
-	printf("fini de relacher les forks a %dms", timer() - infos->time_ref);
+	printf("fini de relacher les forks a %dms\n", timer() - infos->time_ref);
 }
