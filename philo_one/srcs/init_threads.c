@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: erlajoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/24 17:07:56 by erlajoua          #+#    #+#             */
-/*   Updated: 2021/04/24 11:29:11 by user42           ###   ########.fr       */
+/*   Created: 2021/04/29 10:59:59 by erlajoua          #+#    #+#             */
+/*   Updated: 2021/04/29 11:00:00 by erlajoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	*faucheuse(void *arg)
 	args = (void **)arg;
 	infos = (t_info *)args[0];
 	philos = (t_philo *)args[1];
-	usleep(infos->time_to_die * T_MILLI);
-	timing = timer() - infos->time_ref;
+	ft_usleep(infos->time_to_die);
+	timing = timer(philos->time_ref);
 	if (infos->onedead != 1 && timing - philos->last_meal >= infos->time_to_die)
 	{
 		if (infos->onedead != 1 &&
@@ -31,17 +31,17 @@ void	*faucheuse(void *arg)
 		{
 			infos->onedead = 1;
 			pthread_mutex_lock(&infos->mutex_stdout);
-			printf("%6dms   %d   died\n", timing, philos->id + 1);
+			printf("%6d   %d   died\n", timing, philos->id + 1);
 			pthread_mutex_unlock(&infos->mutex_stdout);
 		}
 	}
 	return (NULL);
 }
 
-void	check_death(pthread_t *reaper, t_info *infos)
+void	check_death(pthread_t *reaper, t_info *infos, t_philo *philos)
 {
 	if (!infos->onedead && infos->time2 == 0)
-		infos->time2 = timer() - infos->time_ref;
+		infos->time2 = timer(philos->time_ref);
 	pthread_join(*reaper, NULL);
 }
 
@@ -70,7 +70,7 @@ void	*philosophers(void *arg)
 			break ;
 		philo_think(infos, philos);
 	}
-	check_death(&reaper, infos);
+	check_death(&reaper, infos, philos);
 	return (NULL);
 }
 
@@ -98,9 +98,9 @@ int		init_threads(t_info *infos, t_philo *philos)
 
 	i = 0;
 	args[0] = (void *)infos;
-	infos->time_ref = timer();
 	while (i < infos->nb_philos)
 	{
+		philos[i].time_ref = timer(0);
 		args[1] = (void *)&philos[i];
 		if (pthread_create(&(philos[i].th_phil), NULL, &philosophers, args))
 			return (0);

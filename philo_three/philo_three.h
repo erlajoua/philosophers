@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: erlajoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/19 15:19:49 by erlajoua          #+#    #+#             */
-/*   Updated: 2021/04/28 11:22:38 by user42           ###   ########.fr       */
+/*   Created: 2021/04/29 11:02:46 by erlajoua          #+#    #+#             */
+/*   Updated: 2021/04/29 11:02:46 by erlajoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@
 
 enum
 {
-	MALLOC
+	MALLOC,
+	PARAMS
 };
 
 enum
@@ -68,8 +69,9 @@ typedef struct s_info	t_info;
 int						init_process(t_info *infos, t_philo *philos,
 						int *general);
 int						ft_atoi(char *str);
+int						parsing_params(int ac, char **av);
 int						ft_strlen(char *str);
-void					init_params(t_info *infos, int ac, char **av);
+int						init_params(t_info *infos, int ac, char **av);
 void					ft_putstr_fd(char *str, int fd);
 void					ft_error(int index);
 void					philo_eat(t_info *infos, t_philo *philos);
@@ -79,9 +81,9 @@ void					join_and_destroy(t_info *infos, pthread_mutex_t *forks);
 void					*ft_memset(void *b, int c, size_t len);
 void					ft_putnbr(int nb);
 void					check(t_info *infos, t_philo *philos, int *general);
-unsigned int			timer(long start);
-t_philo					*init_philos(t_info *infos);
 void					init_forks(t_info *infos);
 void					ft_usleep(int duration);
+t_philo					*init_philos(t_info *infos);
+unsigned int			timer(long start);
 
 #endif

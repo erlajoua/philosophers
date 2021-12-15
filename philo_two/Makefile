@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: erlajoua <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/04/29 11:00:34 by erlajoua          #+#    #+#              #
+#    Updated: 2021/04/29 11:00:36 by erlajoua         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = philo_two
 
 SRCS =	display.c \
@@ -13,6 +25,7 @@ SRCS =	display.c \
 		philo_eat.c \
 		philo_sleep.c \
 		philo_think.c \
+		parsing.c
 
 OBJS= $(addprefix srcs/,$(SRCS:.c=.o))
 

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: erlajoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/19 15:19:49 by erlajoua          #+#    #+#             */
-/*   Updated: 2021/04/28 11:23:34 by user42           ###   ########.fr       */
+/*   Created: 2021/04/29 10:59:37 by erlajoua          #+#    #+#             */
+/*   Updated: 2021/04/29 10:59:38 by erlajoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@
 
 enum
 {
-	MALLOC
+	MALLOC,
+	PARAMS
 };
 
 enum
@@ -40,6 +41,7 @@ struct					s_philo
 	pthread_mutex_t		*fork_l;
 	pthread_mutex_t		*fork_r;
 	int					id;
+	unsigned int		time_ref;
 	unsigned int		last_meal;
 	unsigned int		nb_meals;
 };
@@ -53,7 +55,6 @@ struct					s_info
 	unsigned int		time_to_sleep;
 	unsigned int		nb_meals_max;
 	unsigned int		current_nb_meal;
-	unsigned int		time_ref;
 	unsigned int		time2;
 	pthread_mutex_t		mutex_stdout;
 	int					onedead;
@@ -63,7 +64,8 @@ typedef struct s_info	t_info;
 int						init_threads(t_info *infos, t_philo *philos);
 int						ft_atoi(char *str);
 int						ft_strlen(char *str);
-void					init_params(t_info *infos, int ac, char **av);
+int						parsing_params(int ac, char **av);
+int						init_params(t_info *infos, int ac, char **av);
 void					ft_putstr_fd(char *str, int fd);
 void					ft_error(int index);
 void					philo_eat(t_info *infos, t_philo *philos);
@@ -73,9 +75,10 @@ void					join_and_destroy(t_info *infos, pthread_mutex_t *forks);
 void					*ft_memset(void *b, int c, size_t len);
 void					ft_putnbr(int nb);
 void					check(t_info *infos, t_philo *philos);
-unsigned int			timer(void);
+void					ft_usleep(int duration);
+void					philo_dead(t_info *infos, t_philo *philos);
+unsigned int			timer(long start);
 t_philo					*init_philos(t_info *infos);
 pthread_mutex_t			*init_forks(t_info *infos, t_philo *philos);
-void					philo_dead(t_info *infos, t_philo *philos);
 
 #endif

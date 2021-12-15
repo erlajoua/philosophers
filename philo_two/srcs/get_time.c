@@ -12,12 +12,26 @@
 
 #include "../philo_two.h"
 
-unsigned int	timer(void)
+unsigned int	timer(long start)
 {
 	struct timeval	tv;
 	int				i;
 
 	gettimeofday(&tv, NULL);
-	i = tv.tv_sec * 1000 + tv.tv_usec / 1000;
+	i = ((tv.tv_sec * 1000) + tv.tv_usec / 1000) - start;
 	return (i);
+}
+
+void			ft_usleep(int duration)
+{
+	long start;
+	long current;
+
+	start = timer(0);
+	current = start;
+	while (duration > current - start)
+	{
+		usleep(100);
+		current = timer(0);
+	}
 }

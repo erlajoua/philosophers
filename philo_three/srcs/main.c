@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: erlajoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/24 17:07:57 by erlajoua          #+#    #+#             */
-/*   Updated: 2021/04/24 10:23:54 by user42           ###   ########.fr       */
+/*   Created: 2021/04/29 11:03:17 by erlajoua          #+#    #+#             */
+/*   Updated: 2021/04/29 11:03:19 by erlajoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int		check_child(pid_t pid, int *general, t_info *infos)
 		if (WEXITSTATUS(status) == 3)
 		{
 			*general = *general + 1;
-			//printf("general : %d\n", *general);
 			if (*general >= infos->nb_philos)
 				return (3);
 		}
@@ -63,7 +62,7 @@ void	check(t_info *infos, t_philo *philos, int *general)
 	kill_all(philos, infos);
 	if (checker == 3)
 	{
-		printf("%6dms   all philosophers ate.\n",
+		printf("%6d   all philosophers ate.\n",
 		timer(philos->time_ref));
 	}
 }
@@ -82,11 +81,11 @@ int		main(int ac, char **av)
 		printf("usage %s 2 500 300 100 (?)\n", av[0]);
 		return (0);
 	}
-	init_params(&infos, ac, av);
+	if (!(init_params(&infos, ac, av)))
+		ft_error(PARAMS);
 	if (!(philos = init_philos(&infos)))
 		ft_error(MALLOC);
 	init_forks(&infos);
-	//infos.time_ref = timer(infos.time_ref);
 	if (!(init_process(&infos, philos, &general)))
 		ft_error(MALLOC);
 	sem_close(infos.forks);

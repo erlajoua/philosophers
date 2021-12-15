@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: erlajoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/24 17:07:56 by erlajoua          #+#    #+#             */
-/*   Updated: 2021/04/28 11:28:03 by user42           ###   ########.fr       */
+/*   Created: 2021/04/29 11:03:13 by erlajoua          #+#    #+#             */
+/*   Updated: 2021/04/29 11:27:42 by erlajoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ void	*faucheuse(void *arg)
 	philos = (t_philo *)args[1];
 	ft_usleep(infos->time_to_die);
 	timing = timer(philos->time_ref);
-	if (timing-- && timing - philos->last_meal >= infos->time_to_die)
+	if (timing - philos->last_meal >= infos->time_to_die)
 	{
 		if (infos->onedead != 1)
 		{
 			infos->onedead = 1;
 			sem_wait(infos->sem_stdout);
-			printf("%6dms   %d   died\n", timing, philos->id + 1);
+			printf("%6d   %d   died\n", timing, philos->id + 1);
 		}
 		exit(2);
 	}
@@ -41,10 +41,7 @@ void	exit_philo(t_philo *philos, t_info *infos, pthread_t *reaper)
 {
 	pthread_detach(*reaper);
 	if (philos->nb_meals >= infos->nb_meals_max)
-	{
-		//printf("exit 3 pour [%d]\n", philos->id + 1);
 		exit(3);
-	}
 	exit(2);
 }
 

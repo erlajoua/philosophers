@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: erlajoua <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/24 17:07:57 by erlajoua          #+#    #+#             */
-/*   Updated: 2021/04/24 10:23:54 by user42           ###   ########.fr       */
+/*   Created: 2021/04/29 11:00:07 by erlajoua          #+#    #+#             */
+/*   Updated: 2021/04/29 11:00:08 by erlajoua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	check(t_info *infos, t_philo *philos)
 		pthread_mutex_lock(&infos->mutex_stdout);
 		if (infos->time2)
 		{
-			printf("%6dms   all philosophers ate.\n",
+			printf("%6d   all philosophers ate.\n",
 			infos->time2);
 		}
 		pthread_mutex_unlock(&infos->mutex_stdout);
@@ -49,12 +49,14 @@ int		main(int ac, char **av)
 		printf("usage %s 2 500 300 100 (?)\n", av[0]);
 		return (0);
 	}
-	init_params(&infos, ac, av);
+	if (!parsing_params(ac, av))
+		ft_error(PARAMS);
+	if (!(init_params(&infos, ac, av)))
+		ft_error(PARAMS);
 	if (!(philos = init_philos(&infos)))
 		ft_error(MALLOC);
 	if (!(forks = init_forks(&infos, philos)))
 		ft_error(MALLOC);
-	infos.time_ref = timer();
 	if (!(init_threads(&infos, philos)))
 		ft_error(MALLOC);
 	join_and_destroy(&infos, forks);

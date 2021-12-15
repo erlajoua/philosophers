@@ -22,7 +22,7 @@ unsigned int	timer(long start)
 	return (i);
 }
 
-void	ft_usleep(int duration)
+void			ft_usleep(int duration)
 {
 	long start;
 	long current;
